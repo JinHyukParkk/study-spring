@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/post")
 public class PostApiController {
 
-    @PostMapping("/post")   // http://localhost:9090/api/get/hello
+    @PostMapping("")   // http://localhost:9090/api/post
 //    public void post(@RequestBody Map<String, Object> requestData) {
     public void post(@RequestBody PostRequestDto postRequestDto) {
 //        requestData.forEach((key, value) -> {

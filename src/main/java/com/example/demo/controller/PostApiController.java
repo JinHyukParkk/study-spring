@@ -1,15 +1,27 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.PostRequestDto;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping("/api/post")
+@RequestMapping("/api")
 public class PostApiController {
 
-    @PostMapping("/hello")   // http://localhost:9090/api/get/hello
-    public String getHello() {
-        return "get hello";
+    @PostMapping("/post")   // http://localhost:9090/api/get/hello
+//    public void post(@RequestBody Map<String, Object> requestData) {
+    public void post(@RequestBody PostRequestDto postRequestDto) {
+//        requestData.forEach((key, value) -> {
+//            System.out.println("key : " + key);
+//            System.out.println("value : " + value);
+//
+//        });
+
+        System.out.println(postRequestDto.toString());
+
     }
 }

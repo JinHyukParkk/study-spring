@@ -21,10 +21,10 @@ public class ExceptionController {
 
             @NotNull
             @Min(1)
-            @RequestParam Integer age) {
+            @RequestParam Integer ago) {
         User1 user = new User1();
         user.setName(name);
-        user.setAge(age);
+        user.setAge(ago);
 
         int a = 10 + user.getAge();
 

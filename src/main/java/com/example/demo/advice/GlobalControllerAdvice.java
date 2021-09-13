@@ -1,12 +1,13 @@
 package com.example.demo.advice;
 
+import com.example.demo.controller.ValidationController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(basePackages = "com.example.demo.controller")
+//@RestControllerAdvice(basePackages = "com.example.demo.controller")
 public class GlobalControllerAdvice {
 
     @ExceptionHandler(value = Exception.class)

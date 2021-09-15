@@ -6,12 +6,14 @@ import com.example.demo.ioc.Encoder;
 import com.example.demo.ioc.UrlEncoder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @SpringBootApplication
+@ServletComponentScan
 public class SpringStudyApplication {
 
     public static void main(String[] args) {

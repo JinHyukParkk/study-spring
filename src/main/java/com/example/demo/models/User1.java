@@ -1,11 +1,12 @@
 package com.example.demo.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
-@Getter @Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User1 {
 
     @NotEmpty

@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.annotation.Decode;
 import com.example.demo.annotation.Timer;
 import com.example.demo.models.User;
-import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

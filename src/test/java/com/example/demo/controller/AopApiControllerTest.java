@@ -8,6 +8,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = AopApiController.class)
@@ -23,6 +24,7 @@ class AopApiControllerTest {
         mockMvc.perform(
                     get("/aop/get/1")
                             .params(params))
+                .andDo(print())
                 .andExpect(status().isOk());
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.interceptor;
 
 import com.example.demo.annotation.Auth;
+import com.example.demo.exception.AuthException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -41,7 +42,8 @@ public class AuthInterceptor implements HandlerInterceptor {
                 return true;
             }
 
-            return false;
+            throw new AuthException();
+
         }
 
         return true;

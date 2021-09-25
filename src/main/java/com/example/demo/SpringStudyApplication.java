@@ -1,19 +1,15 @@
 package com.example.demo;
 
-import com.example.demo.ioc.ApplicationContextProvider;
-import com.example.demo.ioc.Base64Encoder;
-import com.example.demo.ioc.Encoder;
-import com.example.demo.ioc.UrlEncoder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @SpringBootApplication
 @ServletComponentScan
+@EnableAsync
 public class SpringStudyApplication {
 
     public static void main(String[] args) {

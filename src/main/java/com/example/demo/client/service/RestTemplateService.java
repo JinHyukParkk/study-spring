@@ -1,6 +1,8 @@
 package com.example.demo.client.service;
 
-import com.example.demo.basic.dto.UserResponse;
+import com.example.demo.client.dto.UserRequest;
+import com.example.demo.client.dto.UserResponse;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -35,7 +37,7 @@ public class RestTemplateService {
         return result.getBody();
     }
 
-    public UserResponse user() {
+    public UserResponse getUser() {
         URI uri = UriComponentsBuilder
                 .fromUriString("http://localhost:9090")
                 .path("/server/user")
@@ -59,5 +61,31 @@ public class RestTemplateService {
         System.out.println(result.getBody());
 
         return result.getBody();
+    }
+
+    public UserResponse postUser() {
+        // http://localhost:9090/server/user/{userId}/name/{userName}
+
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:9090")
+                .path("/server/user/{userId}/name/{userName}")
+                .encode()
+                .build()
+                .expand("100", "hyuk")
+                .toUri();
+
+        // http body -> object -> object mapper -> json -> rest template -> http body json
+        UserRequest req = new UserRequest();
+        req.setName("hyuk");
+        req.setAge(29);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<UserResponse> response = restTemplate.postForEntity(uri, req, UserResponse.class);
+
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getHeaders());
+        System.out.println(response.getBody());
+
+        return response.getBody();
     }
 }

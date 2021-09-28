@@ -1,6 +1,6 @@
 package com.example.demo.basic.controller;
 
-import com.example.demo.basic.dto.UserRequest;
+import com.example.demo.client.dto.UserRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;

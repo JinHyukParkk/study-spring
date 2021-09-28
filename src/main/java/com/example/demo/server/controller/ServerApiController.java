@@ -1,12 +1,11 @@
 package com.example.demo.server.controller;
 
-import com.example.demo.basic.dto.UserRequest;
-import com.example.demo.basic.models.User1;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.server.dto.UserRequest;
+import com.example.demo.server.model.User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/server")
 public class ServerApiController {
@@ -17,10 +16,18 @@ public class ServerApiController {
     }
 
     @GetMapping("/user")
-    public User1 user(UserRequest userRequest) {
-        User1 user = new User1();
+    public User user(UserRequest userRequest) {
+        User user = new User();
         user.setName(userRequest.getName());
         user.setAge(userRequest.getAge());
+        return user;
+    }
+
+    @PostMapping("/user/{userId}/name/{userName}")
+    public User post(@RequestBody User user, @PathVariable int userId, @PathVariable String userName) {
+        log.info("userId : {}, username : {}", userId, userName);
+        log.info("client req : {}", user);
+
         return user;
     }
 }

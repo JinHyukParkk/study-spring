@@ -14,7 +14,6 @@ public class AopApiController {
         System.out.println("get method");
 
         return id + " " + name;
-
     }
 
     @PostMapping("/post")

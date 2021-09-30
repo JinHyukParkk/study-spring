@@ -3,6 +3,8 @@ package com.example.demo.client.service;
 import com.example.demo.client.dto.UserRequest;
 import com.example.demo.client.dto.UserResponse;
 import org.apache.coyote.Response;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -79,13 +81,25 @@ public class RestTemplateService {
         req.setName("hyuk");
         req.setAge(29);
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<UserResponse> response = restTemplate.postForEntity(uri, req, UserResponse.class);
+        RequestEntity<UserRequest> requestEntity = RequestEntity
+                .post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("x-authorization", "abcd")
+                .header("custom-header", "fffff")
+                .body(req);
 
-        System.out.println(response.getStatusCode());
-        System.out.println(response.getHeaders());
-        System.out.println(response.getBody());
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<UserResponse> response = restTemplate.exchange(requestEntity, UserResponse.class);
 
         return response.getBody();
+
+//        RestTemplate restTemplate = new RestTemplate();
+//        ResponseEntity<UserResponse> response = restTemplate.postForEntity(uri, req, UserResponse.class);
+//
+//        System.out.println(response.getStatusCode());
+//        System.out.println(response.getHeaders());
+//        System.out.println(response.getBody());
+
+//        return response.getBody();
     }
 }

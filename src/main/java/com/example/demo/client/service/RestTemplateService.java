@@ -1,8 +1,9 @@
 package com.example.demo.client.service;
 
+import com.example.demo.client.dto.Req;
 import com.example.demo.client.dto.UserRequest;
 import com.example.demo.client.dto.UserResponse;
-import org.apache.coyote.Response;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -81,6 +82,31 @@ public class RestTemplateService {
         req.setName("hyuk");
         req.setAge(29);
 
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<UserResponse> response = restTemplate.postForEntity(uri, req, UserResponse.class);
+
+        System.out.println(response.getStatusCode());
+        System.out.println(response.getHeaders());
+        System.out.println(response.getBody());
+
+        return response.getBody();
+    }
+
+    public UserResponse exchange() {
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:9090")
+                .path("/server/user/{userId}/name/{userName}")
+                .encode()
+                .build()
+                .expand("100", "hyuk")
+                .toUri();
+        System.out.println(uri);
+
+        // http body -> object -> object mapper -> json -> rest template -> http body json
+        UserRequest req = new UserRequest();
+        req.setName("hyuk");
+        req.setAge(29);
+
         RequestEntity<UserRequest> requestEntity = RequestEntity
                 .post(uri)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -92,14 +118,43 @@ public class RestTemplateService {
         ResponseEntity<UserResponse> response = restTemplate.exchange(requestEntity, UserResponse.class);
 
         return response.getBody();
+    }
 
-//        RestTemplate restTemplate = new RestTemplate();
-//        ResponseEntity<UserResponse> response = restTemplate.postForEntity(uri, req, UserResponse.class);
-//
-//        System.out.println(response.getStatusCode());
-//        System.out.println(response.getHeaders());
-//        System.out.println(response.getBody());
+    public Req<UserResponse> genericExchange() {
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:9090")
+                .path("/server/user/{userId}/name/{userName}")
+                .encode()
+                .build()
+                .expand("100", "hyuk")
+                .toUri();
 
-//        return response.getBody();
+        System.out.println(uri);
+        // http body -> object -> object mapper -> json -> rest template -> http body json
+        UserRequest userRequest = new UserRequest();
+        userRequest.setName("hyuk");
+        userRequest.setAge(29);
+
+        Req<UserRequest> req = new Req<>();
+        req.setHeader(
+                new Req.Header()
+        );
+        req.setResponseBody(
+                userRequest
+        );
+
+        RequestEntity<Req<UserRequest>> requestEntity = RequestEntity
+                .post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("x-authorization", "abcd")
+                .header("custom-header", "fffff")
+                .body(req);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<Req<UserResponse>> response
+                = restTemplate.exchange(requestEntity, new ParameterizedTypeReference<Req<UserResponse>>(){});
+
+        return response.getBody();
     }
 }

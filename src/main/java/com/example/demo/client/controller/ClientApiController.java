@@ -1,6 +1,6 @@
 package com.example.demo.client.controller;
 
-import com.example.demo.client.dto.UserRequest;
+import com.example.demo.client.dto.Req;
 import com.example.demo.client.dto.UserResponse;
 import com.example.demo.client.service.RestTemplateService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,5 +30,15 @@ public class ClientApiController {
     @GetMapping("/addUser")
     public UserResponse postUser() {
         return restTemplateService.postUser();
+    }
+
+    @GetMapping("/exchange")
+    public UserResponse exchange() {
+        return restTemplateService.exchange();
+    }
+
+    @GetMapping("/generic/exchange")
+    public Req<UserResponse> genericExchange() {
+        return restTemplateService.genericExchange();
     }
 }

@@ -3,6 +3,9 @@ package com.example.demo.server.controller;
 import com.example.demo.server.dto.Req;
 import com.example.demo.server.dto.UserRequest;
 import com.example.demo.server.model.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.nio.charset.Charset;
 
+@Api(tags = {"Server 에서 사용하는 API"})  // swagger
 @Slf4j
 @RestController
 @RequestMapping("/server")
@@ -23,6 +27,8 @@ public class ServerApiController {
         return "hello server";
     }
 
+    @ApiResponse(code = 502, message = "사용자의 나이가 10살 이하일 때")
+    @ApiOperation(value = "사용자의 이름과 나이를 echo하는 메소드")
     @GetMapping("/user")
     public User user(UserRequest userRequest) {
         User user = new User();

@@ -64,8 +64,7 @@ public class ServerApiController {
     public String naver() {
 
         URI uri = UriComponentsBuilder
-                .fromUriString("https://openapi.naver.com")
-                .path("/v1/search/local.json")
+                .fromUriString("https://openapi.naver.com/v1/search/local.json")
                 .queryParam("query", "중국집")
                 .queryParam("display", 10)
                 .queryParam("start", 1)

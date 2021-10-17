@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
-public class ApiController {
+@RequestMapping("/book")
+public class BookApiController {
 
     @GetMapping("")
     public String test() {

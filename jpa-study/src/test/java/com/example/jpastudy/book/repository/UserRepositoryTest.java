@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +41,7 @@ class UserRepositoryTest {
     }
 
     @Test
+    @Transactional
     void getOneTest() {
         // getOne은 기본적으로 Entity 에서 LAZY한 FETCH을 지원함
         User user = userRepository.getOne(1L);
@@ -86,7 +89,7 @@ class UserRepositoryTest {
     void deleteTest() {
         // delete
         userRepository.delete(userRepository.findById(1L).orElseThrow(RuntimeException::new));
-        userRepository.deleteById(1L);
+//        userRepository.deleteById(1L);
     }
 
     @Test
@@ -123,11 +126,6 @@ class UserRepositoryTest {
         Example<User> example2 = Example.of(user, matcher1);
         userRepository.findAll(example).forEach(System.out::println);
     }
-    @Test
-//    @Transactional // LAZY 일때
-    void crud() {
-
-    }
 
     @Test
     void update() {
@@ -157,8 +155,19 @@ class UserRepositoryTest {
         System.out.println("findFirst1ByName :" + userRepository.findFirst1ByName("gun"));
         System.out.println("findFirst2ByName :" + userRepository.findFirst2ByName("gun"));
         System.out.println("findLast1ByName :" + userRepository.findLast1ByName("gun"));
-
-
-
     }
+
+    @Test
+    void whereInSelect() {
+        System.out.println("findByEmailAndName :" + userRepository.findByEmailAndName("gun@gmail.com","gun"));
+        System.out.println("findByEmailOrName :" + userRepository.findByEmailOrName("gun@gmail.com","hyuk"));
+        System.out.println("findByCreatedAtAfter :" + userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByIdAfter :" + userRepository.findByIdAfter(1L));
+        System.out.println("findByCreatedAtGreaterThan :" + userRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByCreatedAtGreaterThanEqual :" + userRepository.findByCreatedAtGreaterThanEqual(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByCreatedAtBetween :" + userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L), LocalDateTime.now()));
+        System.out.println("findByIdBetween :" + userRepository.findByIdBetween(1L, 4L));
+        System.out.println("findByIdGreaterThanEqualAndIDLessThanEqual :" + userRepository.findByIdGreaterThanEqualAndIDLessThanEqual(1L, 4L));
+    }
+
 }

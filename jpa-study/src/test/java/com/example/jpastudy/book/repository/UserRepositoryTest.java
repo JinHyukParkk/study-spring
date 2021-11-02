@@ -168,6 +168,9 @@ class UserRepositoryTest {
         System.out.println("findByCreatedAtBetween :" + userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L), LocalDateTime.now()));
         System.out.println("findByIdBetween :" + userRepository.findByIdBetween(1L, 4L));
         System.out.println("findByIdGreaterThanEqualAndIDLessThanEqual :" + userRepository.findByIdGreaterThanEqualAndIDLessThanEqual(1L, 4L));
+
+        System.out.println("findByIdIsNotNull :" + userRepository.findByIdIsNotNull());
+
     }
 
 }

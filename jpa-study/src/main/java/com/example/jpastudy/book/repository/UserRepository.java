@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByName(String name);
@@ -53,4 +51,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByIdBetween(Long id1, Long id2);
 
     List<User> findByIdGreaterThanEqualAndIDLessThanEqual(Long Id1, Long id2);
+
+    List<User> findByIdIsNotNull();
 }

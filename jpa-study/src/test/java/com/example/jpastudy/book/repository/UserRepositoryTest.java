@@ -167,10 +167,26 @@ class UserRepositoryTest {
         System.out.println("findByCreatedAtGreaterThanEqual :" + userRepository.findByCreatedAtGreaterThanEqual(LocalDateTime.now().minusDays(1L)));
         System.out.println("findByCreatedAtBetween :" + userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L), LocalDateTime.now()));
         System.out.println("findByIdBetween :" + userRepository.findByIdBetween(1L, 4L));
-        System.out.println("findByIdGreaterThanEqualAndIDLessThanEqual :" + userRepository.findByIdGreaterThanEqualAndIDLessThanEqual(1L, 4L));
+        System.out.println("findByIdGreaterThanEqualAndIdLessThanEqual :" + userRepository.findByIdGreaterThanEqualAndIdLessThanEqual(1L, 4L));
 
         System.out.println("findByIdIsNotNull :" + userRepository.findByIdIsNotNull());
+        System.out.println("findByAddressNotEmpty :" + userRepository.findByAddressNotEmpty());
 
+        System.out.println("findByNameIn :" + userRepository.findByNameIn(Lists.newArrayList("hyuk", "gun")));
+
+    }
+
+    @Test
+    void whereLikeSelect() {
+        System.out.println("findByNameStartingWith :" + userRepository.findByNameStartingWith("hy"));
+        System.out.println("findByNameEndingWith :" + userRepository.findByNameEndingWith("uk"));
+        System.out.println("findByNameContains :" + userRepository.findByNameContains("hyuk"));
+        System.out.println("findByNameLike :" + userRepository.findByNameLike ("%hyuk%"));
+    }
+
+    @Test
+    void pagingAndSortingTest() {
+        System.out.println("findTop1ByName :" + userRepository.findTop1ByName("hyuk"));
     }
 
 }

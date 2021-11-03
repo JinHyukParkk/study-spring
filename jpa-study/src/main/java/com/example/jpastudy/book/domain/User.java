@@ -2,10 +2,9 @@ package com.example.jpastudy.book.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 //@Getter @Setter
 //@ToString // java 객체에서 toString 오버라이딩 하는 것을 권고함.
@@ -31,4 +30,7 @@ public class User {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Address> address;
 }

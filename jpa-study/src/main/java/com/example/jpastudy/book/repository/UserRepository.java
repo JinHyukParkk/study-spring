@@ -5,9 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByName(String name);
+
+//    Set<User> findByUserByNameIs(String name);
+//    Set<User> findByUserByName(String name);
+//    Set<User> findByUserByNameEquals(String name);
 
     User findByEmail(String email);
 
@@ -50,7 +55,21 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByIdBetween(Long id1, Long id2);
 
-    List<User> findByIdGreaterThanEqualAndIDLessThanEqual(Long Id1, Long id2);
+    // Camel case 준수하지 않으면 JPA 전체 Error 남
+    List<User> findByIdGreaterThanEqualAndIdLessThanEqual(Long Id1, Long id2);
 
     List<User> findByIdIsNotNull();
+
+    List<User> findByAddressNotEmpty();
+
+    List<User> findByNameIn(List<String> names);
+
+    List<User> findByNameStartingWith(String name);
+
+    List<User> findByNameEndingWith(String name);
+
+    List<User> findByNameContains(String name);
+
+    List<User> findByNameLike(String name);
+
 }

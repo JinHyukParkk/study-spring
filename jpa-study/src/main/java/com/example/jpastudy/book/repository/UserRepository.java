@@ -1,6 +1,8 @@
 package com.example.jpastudy.book.repository;
 
 import com.example.jpastudy.book.domain.User;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -71,5 +73,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByNameContains(String name);
 
     List<User> findByNameLike(String name);
+
+    List<User> findTop1ByNameOrderByIdDesc(String name);
+
+    List<User> findFirstByNameOrderByIdDescEmailAsc(String name);
+
+    List<User> findFirstByName(String name, Sort sort);
+
+    List<User> findByName(String name, Pageable pageable);
 
 }

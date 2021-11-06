@@ -14,3 +14,9 @@ insert into user (`id`, `name`, `email`, `created_at`, `updated_at`) values (4, 
 call next value for hibernate_sequence;
 insert into user (`id`, `name`, `email`, `created_at`, `updated_at`) values (5, 'gun', 'guni123@naver.com', now(), now());
 
+call next value for hibernate_sequence;
+insert into user (`id`, `name`, `email`, `created_at`, `updated_at`) values (6, 'hyuk', 'hyuk0819@naver.com', now(), now());
+
+call next value for hibernate_sequence;
+insert into user (`id`, `name`, `email`, `created_at`, `updated_at`) values (7, 'gun', 'gunee@naver.com', now(), now());
+

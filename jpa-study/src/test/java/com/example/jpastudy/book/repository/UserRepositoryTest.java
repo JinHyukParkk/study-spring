@@ -190,11 +190,11 @@ class UserRepositoryTest {
         System.out.println("findLast1ByName :" + userRepository.findLast1ByName("gun"));
         System.out.println("findTop1ByNameOrderByIdDesc :" + userRepository.findTop1ByNameOrderByIdDesc("gun"));
         System.out.println("findFirstByNameOrderByIdDescEmailAsc :" + userRepository.findFirstByNameOrderByIdDescEmailAsc("gun"));
+
         // 너무 나열하면 코드 가독성이 떨어짐
         System.out.println("findFirstByNameWithSortParams :" + userRepository.findFirstByName("gun", Sort.by(Sort.Order.desc("id"), Sort.Order.asc("email"))));
 
         System.out.println("findByNameWithPaging :" + userRepository.findByName("gun", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))));
-
     }
 
     private Sort getSort() {

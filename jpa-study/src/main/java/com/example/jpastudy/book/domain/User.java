@@ -28,10 +28,13 @@ public class User {
     @NonNull
     private String email;
 
+//    @Column(name = "crtdat", nullable = false)
+//    @Column(nullable = false)
+    @Column
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Address> address;
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<Address> address;
 }

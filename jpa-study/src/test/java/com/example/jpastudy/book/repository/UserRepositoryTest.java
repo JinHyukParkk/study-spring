@@ -197,12 +197,18 @@ class UserRepositoryTest {
         System.out.println("findByNameWithPaging :" + userRepository.findByName("gun", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))));
     }
 
-    private Sort getSort() {
-        return Sort.by(
-                Sort.Order.desc("id"),
-                Sort.Order.asc("email"),
-                Sort.Order.desc("createAt"),
-                Sort.Order.asc("updateAt")
-        );
+    @Test
+    void insertAndUpdateTest() {
+        User user = new User();
+        user.setName("hyuk123");
+        user.setEmail("hyuk123@gmail.com");
+
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("hyuk");
+        user.setEmail("hyuk123@gmail.com");
+
+        userRepository.save(user2);
     }
 }

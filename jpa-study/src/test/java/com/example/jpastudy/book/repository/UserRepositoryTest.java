@@ -1,5 +1,6 @@
 package com.example.jpastudy.book.repository;
 
+import com.example.jpastudy.book.domain.Gender;
 import com.example.jpastudy.book.domain.User;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -170,7 +171,7 @@ class UserRepositoryTest {
         System.out.println("findByIdGreaterThanEqualAndIdLessThanEqual :" + userRepository.findByIdGreaterThanEqualAndIdLessThanEqual(1L, 4L));
 
         System.out.println("findByIdIsNotNull :" + userRepository.findByIdIsNotNull());
-        System.out.println("findByAddressNotEmpty :" + userRepository.findByAddressNotEmpty());
+//        System.out.println("findByAddressNotEmpty :" + userRepository.findByAddressNotEmpty());
 
         System.out.println("findByNameIn :" + userRepository.findByNameIn(Lists.newArrayList("hyuk", "gun")));
 
@@ -206,9 +207,22 @@ class UserRepositoryTest {
         userRepository.save(user);
 
         User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
-        user2.setName("hyuk");
-        user.setEmail("hyuk123@gmail.com");
+        System.out.println(user2.getEmail());
+        user2.setName("hyuk123");
+        user2.setEmail("hyuk2eo@gmail.com");
 
         userRepository.save(user2);
+    }
+
+    @Test
+    void enumTest() {
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setGender(Gender.MALE);
+
+        userRepository.save(user);
+
+        userRepository.findAll().forEach(System.out::println);
+
+        System.out.println(userRepository.findRowRecord().get("gender"));
     }
 }

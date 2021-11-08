@@ -28,12 +28,19 @@ public class User {
     @NonNull
     private String email;
 
+    @Enumerated(value = EnumType.STRING)  // enum 타입에 붙임. 안붙이게 되면 넘버 값으로 들어가게 됨
+    private Gender gender;
+
 //    @Column(name = "crtdat", nullable = false)
-//    @Column(nullable = false)
-    @Column
+//    @Column(nullable = false)   // update 할 때 제외
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
+//    @Column(insertable = false)  // insert 할 때 제외
     private LocalDateTime updatedAt;
+
+    @Transient  // DB에 반영하지 않음
+    private String testData;
 
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Address> address;

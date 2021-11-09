@@ -16,8 +16,9 @@ import java.util.List;
 @Data
 @Builder
 @Entity
+@EntityListeners(value = MyEntityListner.class)
 @Table(name="user_tbl", indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class User {
+public class User implements Auditable {
     @Id
     @GeneratedValue
     private Long id;
@@ -45,15 +46,24 @@ public class User {
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Address> address;
 
-    @PrePersist
-    public void prePersist() {
-        System.out.println(">>> prePersist");
-    }
 
-    @PostPersist
-    public void postPersist() {
-        System.out.println(">>> postPersist");
-    }
+    // MyEntityListener.Class 로 기능 대체
+//    @PrePersist
+//    public void prePersist() {
+//        this.createdAt = LocalDateTime.now();
+//        this.updatedAt = LocalDateTime.now();
+//        System.out.println(">>> prePersist");
+//    }
+//
+//    @PreUpdate
+//    public void preUpdate() {
+//        this.updatedAt = LocalDateTime.now();
+//    }
+//
+//    @PostPersist
+//    public void postPersist() {
+//        System.out.println(">>> postPersist");
+//    }
 
 //    @PrePersist     // insert 메소드가 실행되기 전 실행
 //    @PreUpdate      // update 메소드가 실행되기 전 실행

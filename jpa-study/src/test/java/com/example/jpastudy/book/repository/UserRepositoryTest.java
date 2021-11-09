@@ -221,8 +221,23 @@ class UserRepositoryTest {
 
         userRepository.save(user);
 
-        userRepository.findAll().forEach(System.out::println);
-
         System.out.println(userRepository.findRowRecord().get("gender"));
+//        userRepository.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    void listenerTest() {
+        User user = new User();
+        user.setEmail("test123@naver.com");
+        user.setName("test");
+
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("test123");
+
+        userRepository.save(user2);
+
+        userRepository.deleteById(4L);
     }
 }

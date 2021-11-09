@@ -44,4 +44,23 @@ public class User {
 
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Address> address;
+
+    @PrePersist
+    public void prePersist() {
+        System.out.println(">>> prePersist");
+    }
+
+    @PostPersist
+    public void postPersist() {
+        System.out.println(">>> postPersist");
+    }
+
+//    @PrePersist     // insert 메소드가 실행되기 전 실행
+//    @PreUpdate      // update 메소드가 실행되기 전 실행
+//    @PreRemove      // remove 메소드가 실행되기 전 실행
+//    @PostPersist    // insert 메소드가 실행되기 후 실행
+//    @PostUpdate     // update 메소드가 실행되기 후 실행
+//    @PostRemove     // remove 메소드가 실행되기 후 실행
+//    @PostLoad       // select 메소드가 일어난 직 후
+
 }

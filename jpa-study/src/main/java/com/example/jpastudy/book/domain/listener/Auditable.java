@@ -1,4 +1,4 @@
-package com.example.jpastudy.book.domain;
+package com.example.jpastudy.book.domain.listener;
 
 import java.time.LocalDateTime;
 

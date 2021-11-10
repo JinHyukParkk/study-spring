@@ -22,6 +22,9 @@ class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    UserHistoryRepository userHistoryRepository;
+
     @Test
     void findTest() {
         // Read
@@ -239,5 +242,20 @@ class UserRepositoryTest {
         userRepository.save(user2);
 
         userRepository.deleteById(4L);
+    }
+
+    @Test
+    void userHistoryTest() {
+        User user = new User();
+        user.setEmail("test0819@naver.com");
+        user.setName("test0819");
+
+        userRepository.save(user);
+
+        user.setName("new-test0819");
+
+        userRepository.save(user);
+
+        userHistoryRepository.findAll().forEach(System.out::println);
     }
 }

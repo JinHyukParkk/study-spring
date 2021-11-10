@@ -1,6 +1,5 @@
-package com.example.jpastudy.book.domain;
+package com.example.jpastudy.book.domain.listener;
 
-import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import java.time.LocalDateTime;

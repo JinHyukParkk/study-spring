@@ -1,10 +1,10 @@
 package com.example.jpastudy.book.domain;
 
+import com.example.jpastudy.book.domain.listener.Auditable;
+import com.example.jpastudy.book.domain.listener.UserEntityListener;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
 
 //@Getter @Setter
 //@ToString // java 객체에서 toString 오버라이딩 하는 것을 권고함.
@@ -14,11 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
-@EntityListeners(value = MyEntityListner.class)
+//@EntityListeners(value = {MyEntityListner.class, UserEntityListener.class } )
+@EntityListeners(value = UserEntityListener.class )
 @Table(name="user_tbl", indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class User implements Auditable {
+public class User extends BaseEntity implements Auditable {
     @Id
     @GeneratedValue
     private Long id;
@@ -32,19 +35,20 @@ public class User implements Auditable {
     @Enumerated(value = EnumType.STRING)  // enum 타입에 붙임. 안붙이게 되면 넘버 값으로 들어가게 됨
     private Gender gender;
 
-//    @Column(name = "crtdat", nullable = false)
-//    @Column(nullable = false)   // update 할 때 제외
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
-
-//    @Column(insertable = false)  // insert 할 때 제외
-    private LocalDateTime updatedAt;
-
     @Transient  // DB에 반영하지 않음
     private String testData;
 
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Address> address;
+
+    // BaseEntity 상속으로 기능 대체
+//    @Column(name = "crtdat", nullable = false)
+//    @Column(insertable = false)  // insert 할 때 제외
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
 
 
     // MyEntityListener.Class 로 기능 대체

@@ -34,4 +34,15 @@ public class MemberRepositoryTest {
         memberHistoryRepository.findAll().forEach(System.out::println);
     }
 
+    @Test
+    public void insertTest() {
+        Member member = Member.builder()
+                .nickName("test123")
+                .email("test123@gmail.com")
+                .build();
+
+        memberRepository.save(member);
+        System.out.println(member);
+    }
+
 }

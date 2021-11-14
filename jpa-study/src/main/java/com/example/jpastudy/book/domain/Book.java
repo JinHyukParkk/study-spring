@@ -25,7 +25,17 @@ public class Book extends BaseEntity implements Auditable {
 
     private String name;
 
-    private String author;
+    private String category;
+
+    private Long author_id;
+
+    private Long publisher_id;
+
+
+
+
+
+
 
 //    @PrePersist
 //    public void prePersist() {

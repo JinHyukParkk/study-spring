@@ -17,7 +17,7 @@ import javax.persistence.Id;
 @EqualsAndHashCode(callSuper = true)
 //@EntityListeners(value = MyEntityListner.class)
 //@EntityListeners(value = AuditingEntityListener.class)
-public class Book extends BaseEntity implements Auditable {
+public class Book extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -27,9 +27,9 @@ public class Book extends BaseEntity implements Auditable {
 
     private String category;
 
-    private Long author_id;
+    private Long authorId;
 
-    private Long publisher_id;
+    private Long publisherId;
 
 
 

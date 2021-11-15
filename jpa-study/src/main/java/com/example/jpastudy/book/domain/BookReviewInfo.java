@@ -1,6 +1,5 @@
 package com.example.jpastudy.book.domain;
 
-import com.example.jpastudy.book.domain.listener.Auditable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -15,17 +14,16 @@ import javax.persistence.Id;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-//@EntityListeners(value= MyEntityListner.class)
-//@EntityListeners(value = AuditingEntityListener.class)
-public class UserHistory extends BaseEntity {
+public class BookReviewInfo extends BaseEntity {
+
     @Id
     @GeneratedValue
     private Long id;
 
-    private Long userId;
+    private Long bookId;
 
-    private String name;
+    private float averageReviewScore;
 
-    private String email;
+    private int reviewCount;
 
 }

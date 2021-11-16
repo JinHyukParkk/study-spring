@@ -31,12 +31,6 @@ public class Book extends BaseEntity {
 
     private Long publisherId;
 
-
-
-
-
-
-
 //    @PrePersist
 //    public void prePersist() {
 //        this.createdAt = LocalDateTime.now();

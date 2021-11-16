@@ -15,7 +15,7 @@ public class Author extends BaseEntity {
 
     private String country;
 
-    private Long book_id;
+    private Long bookId;
 
 
 }

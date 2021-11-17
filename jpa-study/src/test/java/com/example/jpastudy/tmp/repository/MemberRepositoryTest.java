@@ -1,5 +1,6 @@
 package com.example.jpastudy.tmp.repository;
 
+import com.example.jpastudy.tmp.domain.Locker;
 import com.example.jpastudy.tmp.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,7 @@ public class MemberRepositoryTest {
 
     @Test
     void listenerTest() {
-        Member member = Member.builder()
-                .nickName("hyuk")
-                .email("hyuk@gmail.com")
-                .build();
-
-        memberRepository.save(member);
-        System.out.println(member);
+        Member member = givenMember("test", "test123@gmail.com");
 
         Member member1 = memberRepository.findByNickName("hyuk");
         member1.setNickName("mimi");
@@ -35,14 +30,25 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void insertTest() {
-        Member member = Member.builder()
-                .nickName("test123")
-                .email("test123@gmail.com")
+    void oneToOneTest() {
+        Member member = givenMember("test", "test@gmail.com");
+
+        Locker locker = Locker.builder()
+                .name("내꼬")
+                .member(member)
                 .build();
 
-        memberRepository.save(member);
-        System.out.println(member);
+        memberRepository.findAll().forEach(System.out::println);
+
+    }
+
+    private Member givenMember(String nickName, String email) {
+        Member member = Member.builder()
+                .nickName(nickName)
+                .email(email)
+                .build();
+
+        return memberRepository.save(member);
     }
 
 }

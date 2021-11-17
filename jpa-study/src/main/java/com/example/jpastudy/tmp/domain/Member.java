@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @EntityListeners(value = NickNameUpdateListener.class)
 public class Member extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
@@ -26,6 +26,10 @@ public class Member extends BaseEntity {
     private String email;
 
     private LocalDateTime nickUpdatedAt;
+
+    @OneToOne(mappedBy = "member")
+    @ToString.Exclude
+    private Locker locker;
 
     @Transient
     private String preNickName;

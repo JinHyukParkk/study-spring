@@ -23,7 +23,7 @@ import javax.persistence.*;
 @Table(name="user_tbl", indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull  // RequriredArgsConstructor 어노테이션을 써도 필수 값으로 있어야함

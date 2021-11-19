@@ -17,6 +17,7 @@ public class Locker {
     @NonNull
     private String name;
 
-    @OneToOne(optional = false)
+    @OneToOne(mappedBy = "locker")
+    @ToString.Exclude
     private Member member;
 }

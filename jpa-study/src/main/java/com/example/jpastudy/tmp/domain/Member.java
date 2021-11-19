@@ -27,11 +27,10 @@ public class Member extends BaseEntity {
 
     private LocalDateTime nickUpdatedAt;
 
-    @OneToOne(mappedBy = "member")
-    @ToString.Exclude
+    @OneToOne
+    @JoinColumn(name = "locker_id")
     private Locker locker;
 
     @Transient
     private String preNickName;
-
 }

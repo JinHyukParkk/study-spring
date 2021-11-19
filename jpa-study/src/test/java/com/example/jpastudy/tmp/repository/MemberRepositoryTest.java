@@ -13,11 +13,15 @@ public class MemberRepositoryTest {
     MemberRepository memberRepository;
 
     @Autowired
+    LockerRepository lockerRepository;
+
+    @Autowired
     MemberHistoryRepository memberHistoryRepository;
 
     @Test
     void listenerTest() {
-        Member member = givenMember("test", "test123@gmail.com");
+        Member member = givenMember("hyuk", "hyuk123@gmail.com");
+        memberRepository.save(member);
 
         Member member1 = memberRepository.findByNickName("hyuk");
         member1.setNickName("mimi");
@@ -27,18 +31,24 @@ public class MemberRepositoryTest {
         System.out.println(member1);
 
         memberHistoryRepository.findAll().forEach(System.out::println);
+
     }
 
     @Test
     void oneToOneTest() {
-        Member member = givenMember("test", "test@gmail.com");
-
         Locker locker = Locker.builder()
                 .name("내꼬")
-                .member(member)
                 .build();
 
+        lockerRepository.save(locker);
+
+        Member member = givenMember("test", "test@gmail.com", locker);
+
+        memberRepository.save(member);
+
+        System.out.println(">> 조회");
         memberRepository.findAll().forEach(System.out::println);
+        lockerRepository.findAll().forEach(System.out::println);
 
     }
 
@@ -48,7 +58,16 @@ public class MemberRepositoryTest {
                 .email(email)
                 .build();
 
-        return memberRepository.save(member);
+        return member;
     }
 
+    private Member givenMember(String nickName, String email, Locker locker) {
+        Member member = Member.builder()
+                .nickName(nickName)
+                .email(email)
+                .locker(locker)
+                .build();
+
+        return member;
+    }
 }

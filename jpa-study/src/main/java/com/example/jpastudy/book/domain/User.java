@@ -5,6 +5,8 @@ import com.example.jpastudy.book.domain.listener.UserEntityListener;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //@Getter @Setter
 //@ToString // java 객체에서 toString 오버라이딩 하는 것을 권고함.
@@ -34,6 +36,11 @@ public class User extends BaseEntity {
 
     @Enumerated(value = EnumType.STRING)  // enum 타입에 붙임. 안붙이게 되면 넘버 값으로 들어가게 됨
     private Gender gender;
+
+    @Builder.Default
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private List<UserHistory> userHistoryList = new ArrayList<>();
 
     @Transient  // DB에 반영하지 않음
     private String testData;

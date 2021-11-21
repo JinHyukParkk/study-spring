@@ -40,6 +40,7 @@ public class User extends BaseEntity {
     @Builder.Default
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ToString.Exclude
     private List<UserHistory> userHistoryList = new ArrayList<>();
 
     @Transient  // DB에 반영하지 않음

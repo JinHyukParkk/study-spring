@@ -37,11 +37,18 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)  // enum 타입에 붙임. 안붙이게 되면 넘버 값으로 들어가게 됨
     private Gender gender;
 
-    @Builder.Default
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @ToString.Exclude
+    @Builder.Default
     private List<UserHistory> userHistoryList = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    @Builder.Default
+    private List<Review> reviews = new ArrayList<>();
 
     @Transient  // DB에 반영하지 않음
     private String testData;

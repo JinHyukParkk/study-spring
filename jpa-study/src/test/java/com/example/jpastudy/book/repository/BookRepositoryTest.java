@@ -1,10 +1,11 @@
 package com.example.jpastudy.book.repository;
 
-import com.example.jpastudy.book.domain.Book;
-import com.example.jpastudy.book.domain.BookReviewInfo;
+import com.example.jpastudy.book.domain.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.transaction.Transactional;
 
 @SpringBootTest
 class BookRepositoryTest {
@@ -13,11 +14,21 @@ class BookRepositoryTest {
     private BookRepository bookRepository;
 
     @Autowired
+    private PublisherRepository publisherRepository;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private BookReviewInfoRepository bookReviewInfoRepository;
+
 
     @Test
     void bookReviewTest() {
-        Book book = givenBook();
+        Book book = givenBook(givenPublisher());
         givenBookReviewInfo(book);
 
         Book result = bookReviewInfoRepository.findById(1L)
@@ -33,11 +44,25 @@ class BookRepositoryTest {
         System.out.println(">>>" + result1);
     }
 
-    private Book givenBook() {
+    @Test
+    @Transactional
+    void bookRelationTest() {
+        givenReview(givenUser(), givenBook(givenPublisher()));
+
+        User user = userRepository.findByEmail("hyuk@gmail.com");
+
+        System.out.println("Review : " + user.getReviews());
+
+        System.out.println("Book : " + user.getReviews().get(0).getBook());
+
+        System.out.println("Publisher : " + user.getReviews().get(0).getBook().getPublisher());
+
+    }
+
+    private Book givenBook(Publisher publisher) {
         Book book = new Book();
         book.setName("JPA 초보");
-        book.setAuthorId(1L);
-        book.setPublisherId(1L);
+        book.setPublisher(publisher);
 
         return bookRepository.save(book);
     }
@@ -52,5 +77,32 @@ class BookRepositoryTest {
 
         System.out.println(">>> " + bookReviewInfoRepository.findAll().get(0));
     }
+
+    private void givenBookAndReview() {
+
+    }
+
+    private void givenReview(User user, Book book) {
+        Review review = new Review();
+        review.setTitle("내 인생 책");
+        review.setContent("읽다가 깨달음");
+        review.setScore(5.0f);
+        review.setUser(user);
+        review.setBook(book);
+
+        reviewRepository.save(review);
+    }
+
+    private User givenUser() {
+        return userRepository.getByEmail("hyuk@gmail.com");
+    }
+
+    private Publisher givenPublisher() {
+        Publisher publisher = new Publisher();
+        publisher.setName("패캠");
+
+        return publisherRepository.save(publisher);
+    }
+
 
 }

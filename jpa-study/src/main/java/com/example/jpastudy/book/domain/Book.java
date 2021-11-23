@@ -1,12 +1,14 @@
 package com.example.jpastudy.book.domain;
 
-import com.example.jpastudy.book.domain.listener.Auditable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -29,9 +31,28 @@ public class Book extends BaseEntity {
     @ToString.Exclude
     private BookReviewInfo bookReviewInfo;
 
-    private Long authorId;
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
 
-    private Long publisherId;
+    @ManyToOne
+    @ToString.Exclude
+    private Publisher publisher;
+
+//    @ManyToMany
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
+
+    public void addBookAndAuthor(BookAndAuthor... bookAndAuthor) {
+        Collections.addAll(this.bookAndAuthors, bookAndAuthor);
+    }
+
+//    public void addAuthor(Author... author) {
+//        Collections.addAll(this.authors, author);
+//    }
 
 //    @PrePersist
 //    public void prePersist() {

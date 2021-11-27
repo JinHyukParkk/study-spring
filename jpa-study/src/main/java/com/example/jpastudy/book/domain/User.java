@@ -22,7 +22,7 @@ import java.util.List;
 @Entity
 //@EntityListeners(value = {MyEntityListner.class, UserEntityListener.class } )
 @EntityListeners(value = UserEntityListener.class )
-@Table(name="user_tbl", indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

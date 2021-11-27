@@ -1,6 +1,7 @@
 package com.example.jpastudy.book.repository;
 
 import com.example.jpastudy.book.domain.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 
 @SpringBootTest
+@Transactional
 class BookRepositoryTest {
 
     @Autowired
@@ -25,11 +27,17 @@ class BookRepositoryTest {
     @Autowired
     private BookReviewInfoRepository bookReviewInfoRepository;
 
+    @BeforeEach
+    void beforeGivenData() {
+
+    }
 
     @Test
     void bookReviewTest() {
         Book book = givenBook(givenPublisher());
         givenBookReviewInfo(book);
+
+        bookReviewInfoRepository.findAll().forEach(System.out::println);
 
         Book result = bookReviewInfoRepository.findById(1L)
                 .orElseThrow(RuntimeException::new)
@@ -37,7 +45,9 @@ class BookRepositoryTest {
 
         System.out.println(">>>" + result);
 
-        BookReviewInfo result1 = bookRepository.findById(1L)
+        bookRepository.findAll().forEach(System.out::println);
+
+        BookReviewInfo result1 = bookRepository.findById(2L)
                 .orElseThrow(RuntimeException::new)
                 .getBookReviewInfo();
 
@@ -45,7 +55,6 @@ class BookRepositoryTest {
     }
 
     @Test
-    @Transactional
     void bookRelationTest() {
         givenReview(givenUser(), givenBook(givenPublisher()));
 
@@ -74,12 +83,6 @@ class BookRepositoryTest {
         bookReviewInfo.setReviewCount(2);
 
         bookReviewInfoRepository.save(bookReviewInfo);
-
-        System.out.println(">>> " + bookReviewInfoRepository.findAll().get(0));
-    }
-
-    private void givenBookAndReview() {
-
     }
 
     private void givenReview(User user, Book book) {
@@ -103,6 +106,4 @@ class BookRepositoryTest {
 
         return publisherRepository.save(publisher);
     }
-
-
 }

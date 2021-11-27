@@ -18,6 +18,7 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
 @SpringBootTest
+@Transactional
 class UserRepositoryTest {
 
     @Autowired
@@ -65,7 +66,7 @@ class UserRepositoryTest {
     @Test
     void flush() {
         // flush
-        userRepository.save(new User("new hyuk", "pjh0819@naver.com"));
+        userRepository.save(new User("new hyuk", "pjh081908190819@naver.com"));
         userRepository.flush();
     }
 
@@ -282,7 +283,5 @@ class UserRepositoryTest {
         result.forEach(System.out::println);
 
         System.out.println("UserHistory.getUser() : " + userHistoryRepository.findAll().get(0).getUser());
-
-
     }
 }

@@ -83,7 +83,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByName(String name, Pageable pageable);
 
-    @Query(value = "select * from user_tbl limit 1;", nativeQuery = true)
+    @Query(value = "select * from user limit 1;", nativeQuery = true)
     Map<String, Object> findRowRecord();
 
 }

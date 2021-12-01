@@ -22,4 +22,9 @@ class UserServiceTest {
 
         System.out.println(">>> " + userRepository.findByEmail("newUser@gmail.com"));
     }
+
+    @Test
+    void save() {
+
+    }
 }

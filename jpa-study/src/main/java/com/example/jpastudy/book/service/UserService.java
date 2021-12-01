@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -38,5 +39,10 @@ public class UserService {
 
         user1.setName("hyuk123123123");
         entityManager.merge(user1); // 삭제된 instance 는 merge 불가
+    }
+
+    public List<User> save() {
+
+        return userRepository.findAll();
     }
 }

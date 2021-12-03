@@ -1,6 +1,5 @@
 package com.example.jpastudy.book.domain;
 
-import com.example.jpastudy.book.domain.listener.Auditable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

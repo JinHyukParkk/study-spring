@@ -5,8 +5,6 @@ import com.example.jpastudy.book.domain.Book;
 import com.example.jpastudy.book.repository.AuthorRepository;
 import com.example.jpastudy.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.NaturalId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

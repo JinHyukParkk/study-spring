@@ -1,9 +1,14 @@
 package com.example.jpastudy.book.domain;
 
-import com.example.jpastudy.book.domain.listener.Auditable;
 import com.example.jpastudy.book.domain.listener.UserEntityListener;
-import lombok.*;
-
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.Builder;
+import lombok.NonNull;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

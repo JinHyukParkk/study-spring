@@ -2,6 +2,7 @@ package com.example.jpastudy.book.service;
 
 import com.example.jpastudy.book.repository.AuthorRepository;
 import com.example.jpastudy.book.repository.BookRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,4 +27,25 @@ class BookServiceTest {
         System.out.println("authors : " + authorRepository.findAll());
     }
 
+    @Test
+    @DisplayName("Transaction 여부에 따른 save 하는 로직에서 RuntimeException 날 때 확인")
+    void transactionRuntimeExceptionTest() {
+        try {
+            bookService.putBookAndAuthorRuntimeException();
+        } catch (RuntimeException e) {
+            System.out.println(">>>" + e.getMessage());
+        }
+        // DB에 반영 안됨
+    }
+
+    @Test
+    @DisplayName("Transaction 여부에 따른 save 하는 로직에서 checked Exception 날 때 확인")
+    void transactionExceptionTest() {
+        try {
+            bookService.putBookAndAuthorRuntimeException();
+        } catch (Exception e) {
+            System.out.println(">>>" + e.getMessage());
+        }
+        // DB에 반영됨
+    }
 }

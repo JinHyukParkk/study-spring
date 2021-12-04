@@ -32,4 +32,34 @@ public class BookService {
     }
     // 메소드 안 적용된 query는 @Transactional 있는 함수 끝날 때 적용됨
 
+
+    public void putBookAndAuthorRuntimeException() {
+        Book book = new Book();
+        book.setName("JPA 시작하기");
+
+        bookRepository.save(book);
+
+        Author author = new Author();
+        author.setName("hyuk");
+
+        authorRepository.save(author);
+
+        throw new RuntimeException("예외나서 DB Commit 안됨");
+    }
+    // RuntimeException 예외 발생하면 DB에 적용 안됨.
+    // checked Exception은 persistence context 반영 내용이 롤백되지 않고 적용됨.
+
+    public void putBookAndAuthorException() throws Exception{
+        Book book = new Book();
+        book.setName("JPA 시작하기");
+
+        bookRepository.save(book);
+
+        Author author = new Author();
+        author.setName("hyuk");
+
+        authorRepository.save(author);
+
+        throw new Exception("예외나서 DB Commit 안됨");
+    }
 }

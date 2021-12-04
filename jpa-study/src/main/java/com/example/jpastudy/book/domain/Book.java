@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class Book extends BaseEntity {
     private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
 
     public void addBookAndAuthor(BookAndAuthor... bookAndAuthor) {
+
         Collections.addAll(this.bookAndAuthors, bookAndAuthor);
     }
 

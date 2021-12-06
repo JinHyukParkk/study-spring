@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class BookServiceTest {
 
@@ -47,5 +45,32 @@ class BookServiceTest {
             System.out.println(">>>" + e.getMessage());
         }
         // DB에 반영됨
+    }
+
+    @Test
+    @DisplayName("Transaction 여부에 따른 save 하는 로직에서 checked Exception 날 때 Rollback 확인")
+    void transactionExceptionRollbackTest() {
+        try {
+            bookService.putBookAndAuthorExceptionRollBack();
+        } catch (Exception e) {
+            System.out.println(">>>" + e.getMessage());
+        }
+        // DB에 반영됨
+    }
+
+    @Test
+    @DisplayName("Transaction 감싸진 메소드 호출")
+    public void putBookAndAuthorExternanlMethod() {
+        try {
+            bookService.put();
+        } catch (RuntimeException e) {
+            System.out.println(">>>" + e.getMessage());
+        }
+    }
+
+    @Test
+    @DisplayName("Transaction Isolaction ")
+    public void isolationTest() {
+
     }
 }

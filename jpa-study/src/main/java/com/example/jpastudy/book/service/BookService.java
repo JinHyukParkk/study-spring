@@ -6,7 +6,10 @@ import com.example.jpastudy.book.repository.AuthorRepository;
 import com.example.jpastudy.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +19,7 @@ public class BookService {
 // 최근에 필드 주입을 권장하지 않음. RequireArgsConstructor 가 생성자를 만들어줌
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final EntityManager entityManager;
 
     public void put() {
         this.putBookAndAuthorRuntimeException();
@@ -93,4 +97,40 @@ public class BookService {
        만약 @Transaction이 감싸진 함수가 다른 함수에 의해 호출되는 경우는
        @Transaction 의 효과가 없어짐
      */
+
+
+//    @Transactional(isolation = Isolation.READ_UNCOMMITTED)  // 정합성이 깨질 수 있기 때문에 잘 사용하지 않음
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void get(Long id) {
+        System.out.println(">>> " + bookRepository.findById(id));
+        System.out.println(">>> " + bookRepository.findAll());
+
+        System.out.println(">>> " + bookRepository.findById(id));
+        System.out.println(">>> " + bookRepository.findAll());
+
+        Book book = bookRepository.findById(id).get();
+        book.setName("바뀜?");
+        bookRepository.save(book);
+    }
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public void GetRepeatable(Long id) {
+        System.out.println(">>> " + bookRepository.findById(id));
+        System.out.println(">>> " + bookRepository.findAll());
+
+        entityManager.clear();
+
+        System.out.println(">>> " + bookRepository.findById(id));
+        System.out.println(">>> " + bookRepository.findAll());
+
+        bookRepository.update();
+
+        entityManager.clear();
+
+        Book book = bookRepository.findById(id).get();
+        book.setName("바뀜?");
+        bookRepository.save(book);
+    }
+
+
 }

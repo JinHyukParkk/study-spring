@@ -1,5 +1,6 @@
 package com.example.jpastudy.book.service;
 
+import com.example.jpastudy.book.domain.Book;
 import com.example.jpastudy.book.repository.AuthorRepository;
 import com.example.jpastudy.book.repository.BookRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -59,6 +60,7 @@ class BookServiceTest {
     }
 
     @Test
+
     @DisplayName("Transaction 감싸진 메소드 호출")
     public void putBookAndAuthorExternanlMethod() {
         try {
@@ -71,6 +73,25 @@ class BookServiceTest {
     @Test
     @DisplayName("Transaction Isolaction ")
     public void isolationTest() {
+        Book book = new Book();
+        book.setName("JPA 강의");
 
+        bookRepository.save(book);
+
+        bookService.get(1L);
+
+        System.out.println(">>> " + bookRepository.findAll());
+    }
+    @Test
+    @DisplayName("Transaction Isolaction ")
+    public void isolationTestRepeatable() {
+        Book book = new Book();
+        book.setName("JPA 강의");
+
+        bookRepository.save(book);
+
+        bookService.get(1L);
+
+        System.out.println(">>> " + bookRepository.findAll());
     }
 }

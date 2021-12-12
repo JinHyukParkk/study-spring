@@ -1,5 +1,6 @@
 package com.example.jpastudy.book.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

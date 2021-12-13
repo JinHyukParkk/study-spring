@@ -23,6 +23,7 @@ import java.util.List;
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@DynamicUpdate
 //@DynamicUpdate
 //@EntityListeners(value = MyEntityListner.class)
 //@EntityListeners(value = AuditingEntityListener.class)

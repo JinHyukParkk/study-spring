@@ -94,4 +94,14 @@ class BookServiceTest {
 
         System.out.println(">>> " + bookRepository.findAll());
     }
+
+    @Test
+    @DisplayName("Transaction Propagation Required")
+    public void testPropagationRequired() {
+        try {
+            bookService.putBookAndAuthorPropagationRequired();
+        } catch (Exception e) {
+            System.out.println(">>>" + e.getMessage());
+        }
+    }
 }

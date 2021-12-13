@@ -7,6 +7,7 @@ import com.example.jpastudy.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -20,6 +21,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final EntityManager entityManager;
+    private final AuthorService authorService;
 
     public void put() {
         this.putBookAndAuthorRuntimeException();
@@ -123,7 +125,7 @@ public class BookService {
         System.out.println(">>> " + bookRepository.findById(id));
         System.out.println(">>> " + bookRepository.findAll());
 
-        bookRepository.update();
+//        bookRepository.update();
 
         entityManager.clear();
 
@@ -132,5 +134,18 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)   // REQUIRES_NEW 는 각각의 개별 Transaction으로
+    public void putBookAndAuthorPropagationRequired() {
+        Book book = new Book();
+        book.setName("JPA 시작하기");
 
+        bookRepository.save(book);
+
+        try {
+            authorService.putAuthor();
+
+        } catch (RuntimeException e) {
+            System.out.println("여기서 catch : " + e.getMessage());
+        }
+    }
 }

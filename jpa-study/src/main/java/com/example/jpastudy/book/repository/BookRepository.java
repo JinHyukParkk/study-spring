@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    @Modifying
-    @Query(value = "update book set category=\"none\", nativeQuery = true")
-    void update();
+//    @Modifying
+//    @Query(value = "update book set category='none', nativeQuery = true")
+//    void update();
 }

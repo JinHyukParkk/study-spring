@@ -20,3 +20,9 @@ insert into user (`id`, `name`, `email`, `created_at`, `updated_at`) values (6, 
 -- call next value for hibernate_sequence;
 insert into user (`id`, `name`, `email`, `created_at`, `updated_at`) values (7, 'gun', 'gunee@naver.com', now(), now());
 
+insert into publisher(`ìd`, `name`) values (1, `패캠`);
+
+insert into book(`id`, `name`, `publisher_id`) values (1, 'Spring 학습', 1);
+
+insert into book(`id`, `name`, `publisher_id`) values (2, 'JPA 학습', 1);
+

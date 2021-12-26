@@ -14,13 +14,10 @@ public class BookRepositoryTest {
 
     @Autowired
     private BookService bookService;
-
     @Autowired
     private BookRepository bookRepository;
-
     @Autowired
     private AuthorRepository authorRepository;
-
     @Autowired
     private PublisherRepository publisherRepository;
 

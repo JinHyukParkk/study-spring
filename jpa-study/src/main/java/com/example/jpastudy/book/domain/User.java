@@ -1,5 +1,6 @@
 package com.example.jpastudy.book.domain;
 
+import com.example.jpastudy.book.domain.listener.MyEntityListner;
 import com.example.jpastudy.book.domain.listener.UserEntityListener;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -25,10 +26,11 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
-//@EntityListeners(value = {MyEntityListner.class, UserEntityListener.class } )
-@EntityListeners(value = UserEntityListener.class )
+@EntityListeners(value = {MyEntityListner.class, UserEntityListener.class } )
+//@EntityListeners(value = UserEntityListener.class )
 @Table(indexes = { @Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

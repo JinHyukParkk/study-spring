@@ -1,7 +1,6 @@
 package com.example.jpastudy.book.repository.chapter7;
 
 import com.example.jpastudy.book.domain.Book;
-import com.example.jpastudy.book.domain.Publisher;
 import com.example.jpastudy.book.repository.AuthorRepository;
 import com.example.jpastudy.book.repository.BookRepository;
 import com.example.jpastudy.book.repository.PublisherRepository;
@@ -9,7 +8,12 @@ import com.example.jpastudy.book.service.BookService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
+
+@SpringBootTest
+@Transactional
 public class BookRepositoryTest {
 
     @Autowired
@@ -114,11 +118,11 @@ public class BookRepositoryTest {
     void bookCascadeTest() {
         Book book = new Book();
         book.setName("Jpa 초급");
-
-        Publisher publisher = new Publisher();
-        publisher.setName("패캠");
-
-        book.setPublisher(publisher);
+//
+//        Publisher publisher = new Publisher();
+//        publisher.setName("패캠");
+//
+//        book.setPublisher(publisher);
         bookRepository.save(book);
         // Book 의 publisher 에 cascade persist 옵션을 넣어줌으로써 pubilsher에도 데이터가 들어감.
 

@@ -5,9 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Where;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +30,8 @@ import java.util.List;
 @DynamicUpdate
 //@DynamicUpdate
 //@EntityListeners(value = MyEntityListner.class)
-//@EntityListeners(value = AuditingEntityListener.class)
+@EntityListeners(value = AuditingEntityListener.class)
+@Where(clause = "deleted = false")
 public class Book extends BaseEntity {
 
     @Id
@@ -51,6 +55,8 @@ public class Book extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @ToString.Exclude
     private Publisher publisher;
+
+    private boolean deleted;
 
 //    @ManyToMany
     @OneToMany

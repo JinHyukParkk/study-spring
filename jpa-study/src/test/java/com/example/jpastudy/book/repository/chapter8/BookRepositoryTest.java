@@ -1,5 +1,6 @@
 package com.example.jpastudy.book.repository.chapter8;
 
+import com.example.jpastudy.book.domain.Publisher;
 import com.example.jpastudy.book.repository.BookRepository;
 import com.example.jpastudy.book.repository.PublisherRepository;
 import org.junit.jupiter.api.Test;
@@ -8,9 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @Transactional
-public class PersistenceTest {
+public class BookRepositoryTest {
 
     @Autowired
     private BookRepository bookRepository;
@@ -26,9 +29,9 @@ public class PersistenceTest {
         bookRepository.deleteById(1L);
 
         bookRepository.findAll().forEach(System.out::println);
-//        publisherRepository.findAll().forEach(System.out::println);
-//
-//        bookRepository.finAll().forEach(book -> System.out.println(book.getPublisher()));
+        publisherRepository.findAll().forEach(System.out::println);
+
+//        bookRepository.findAll().forEach(book -> System.out.println(book.getPublisher()));
     }
     /*
      publisher 도 삭제됨
@@ -36,10 +39,22 @@ public class PersistenceTest {
      */
 
     @Test
+    void publisherRemoveCascadeTest() {
+        Publisher publisher = publisherRepository.findById(1L).get();
+        assertThat(publisher).isNotNull();
+
+        publisherRepository.delete(publisher);
+
+        bookRepository.findAll().forEach(System.out::println);
+
+    }
+
+    @Test
     void softDelete() {
 //        bookRepository.findAllByDeletedFalse().forEach(System.out::println);
 //        bookRepository.findByCategoryIsNullAndDeletedFalse().forEach(System.out::println);
-        bookRepository.findAll();
+        bookRepository.findAll().forEach(System.out::println
+        );
 
         /*
         deleted 조건을 넣음으로써 데이터가 삭제된 것을 표시할 수 있음

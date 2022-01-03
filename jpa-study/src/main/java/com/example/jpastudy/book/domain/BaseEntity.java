@@ -18,12 +18,12 @@ public class BaseEntity implements Auditable {
 
 //    @Column(name = "crtdat", nullable = false)
 //    @Column(insertable = false)  // insert 할 때 제외
-    @Column(columnDefinition = "datetime(6) default now(6) comment='생성시간'", nullable = false, updatable = false)
+    @Column(columnDefinition = "datetime(6) default now(6) comment '생성시간'", nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(columnDefinition = "datetime(6) default now(6) comment='수정시간'", nullable = false )
+    @Column(columnDefinition = "datetime(6) default now(6) comment '수정시간'", nullable = false )
     private LocalDateTime updatedAt;
 
 }

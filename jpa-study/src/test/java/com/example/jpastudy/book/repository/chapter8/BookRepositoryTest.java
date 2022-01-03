@@ -28,8 +28,8 @@ public class BookRepositoryTest {
 
         bookRepository.deleteById(1L);
 
-        bookRepository.findAll().forEach(System.out::println);
-        publisherRepository.findAll().forEach(System.out::println);
+//        bookRepository.findAll().forEach(System.out::println);
+//        publisherRepository.findAll().forEach(System.out::println);
 
 //        bookRepository.findAll().forEach(book -> System.out.println(book.getPublisher()));
     }

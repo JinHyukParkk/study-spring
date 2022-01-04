@@ -52,4 +52,22 @@ public class BookRepositoryTest {
 
     }
 
+    @Test
+    @DisplayName("Native Query 사용하기")
+    void testNativeQuery() {
+        bookRepository.findAll().forEach(System.out::println);
+
+        bookRepository.findAllCustom().forEach(System.out::println);
+        // deleted 된거 무시됨.
+    }
+
+    @Test
+    @DisplayName("Update 시 일괄로 업데이트 됨")
+    void testUpdateNativeQuery() {
+        System.out.println("affected rows: " + bookRepository.updateCategories());
+
+        bookRepository.findAllCustom().forEach(System.out::println);
+
+        bookRepository.showTables().forEach(System.out::println);
+    }
 }

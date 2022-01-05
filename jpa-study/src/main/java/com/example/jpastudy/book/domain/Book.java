@@ -58,6 +58,12 @@ public class Book extends BaseEntity {
 
     private boolean deleted;
 
+    private int status; // 판매 상태
+
+    public boolean isDisPlayed() {
+        return status == 200;
+    }
+
 //    @ManyToMany
     @OneToMany
     @JoinColumn(name = "book_id")

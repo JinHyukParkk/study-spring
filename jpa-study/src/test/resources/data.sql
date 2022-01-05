@@ -22,10 +22,11 @@ insert into user (`id`, `name`, `email`, `created_at`, `updated_at`) values (7, 
 
 insert into publisher (`id`, `name`, `created_at`, `updated_at`) values (1, '패캠', now(), now());
 
-insert into book (`id`, `name`, `publisher_id`, `deleted`, `created_at`, `updated_at`) values (1, 'Spring 학습', 1, false, now(), now());
+insert into book (`id`, `name`, `publisher_id`, `deleted`, `created_at`, `updated_at`, `status`) values (1, 'Spring 학습', 1, false, now(), now(), 100);
 
 -- Entity의 @Column columnDefinition으로 defalut 설정
-insert into book (`id`, `name`, `publisher_id`, `deleted`) values (2, 'JPA 학습', 1, false);
+insert into book (`id`, `name`, `publisher_id`, `deleted`, `status`) values (2, 'JPA 학습', 1, false, 100);
 
-insert into book (`id`, `name`, `publisher_id`, `deleted`) values (3, 'Persistence 학습', 1, true);
+insert into book (`id`, `name`, `publisher_id`, `deleted`, `status`) values (3, 'Persistence 학습', 1, true, 200);
+
 

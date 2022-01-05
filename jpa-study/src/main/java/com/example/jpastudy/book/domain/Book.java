@@ -1,5 +1,7 @@
 package com.example.jpastudy.book.domain;
 
+import com.example.jpastudy.book.domain.converter.BookStatusConverter;
+import com.example.jpastudy.book.repository.dto.BookStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -58,11 +61,8 @@ public class Book extends BaseEntity {
 
     private boolean deleted;
 
-    private int status; // 판매 상태
-
-    public boolean isDisPlayed() {
-        return status == 200;
-    }
+//    @Convert(converter = BookStatusConverter.class)  // Converter 에 autoApply=true가 되어있으면 생략 가능
+    private BookStatus status;
 
 //    @ManyToMany
     @OneToMany

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -147,5 +148,12 @@ public class BookService {
         } catch (RuntimeException e) {
             System.out.println("여기서 catch : " + e.getMessage());
         }
+    }
+
+    @Transactional
+    public List<Book> getAll() {
+        List<Book> books = bookRepository.findAll();
+
+        return books;
     }
 }

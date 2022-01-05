@@ -1,7 +1,9 @@
 package com.example.jpastudy.book.repository.chapter9;
 
+import com.example.jpastudy.book.domain.Book;
 import com.example.jpastudy.book.repository.BookRepository;
 import com.example.jpastudy.book.repository.PublisherRepository;
+import com.example.jpastudy.book.repository.dto.BookStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -69,5 +71,20 @@ public class BookRepositoryTest {
         bookRepository.findAllCustom().forEach(System.out::println);
 
         bookRepository.showTables().forEach(System.out::println);
+    }
+
+    @Test
+    @DisplayName("Book Converter 테스트")
+    void testConverter() {
+        bookRepository.findAll().forEach(System.out::println);
+
+        Book book = new Book();
+        book.setName("Spring 고도화");
+        book.setStatus(new BookStatus(200));
+        bookRepository.save(book);
+
+        bookRepository.findAll().forEach(System.out::println);
+
+        System.out.println(bookRepository.findRowRecord().values());
     }
 }

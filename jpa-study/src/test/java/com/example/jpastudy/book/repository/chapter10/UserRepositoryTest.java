@@ -4,6 +4,7 @@ import com.example.jpastudy.book.domain.Address;
 import com.example.jpastudy.book.domain.User;
 import com.example.jpastudy.book.repository.UserHistoryRepository;
 import com.example.jpastudy.book.repository.UserRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +27,7 @@ class UserRepositoryTest {
 
 
     @Test
+    @DisplayName("@Embeded 테스트")
     void embedTest() {
         userRepository.findAll().forEach(System.out::println);
 
@@ -45,11 +47,12 @@ class UserRepositoryTest {
 
         User user2 = new User();
         user2.setName("gum");
-        user2.setHomeAddress(null);
-        user2.setCompanyAddress(null);
+        user2.setHomeAddress(new Address());
+        user2.setCompanyAddress(new Address());
 
         userRepository.save(user2);
 
+        // 영속성 제거
         entityManager.clear();
 
         userRepository.findAll().forEach(System.out::println);
@@ -57,4 +60,9 @@ class UserRepositoryTest {
 
         userRepository.findAllRowRecord().forEach(a -> System.out.println(a.values()));
     }
+    /*
+        Address 객체가 null일 경우와 필드 값이 모두 null 일 경우 영속성 제거
+        DB에 들어가는 값은 동일
+     */
+
 }

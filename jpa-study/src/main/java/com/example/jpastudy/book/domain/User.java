@@ -44,6 +44,24 @@ public class User extends BaseEntity {
     @Enumerated(value = EnumType.STRING)  // enum 타입에 붙임. 안붙이게 되면 넘버 값으로 들어가게 됨
     private Gender gender;
 
+    // 클래스를 따로 만들어서 쓰던지, AttributeOverride를 쓰던지는 협의 후 결정
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "city", column = @Column(name = "home_city")),
+            @AttributeOverride(name = "district", column = @Column(name = "home_district")),
+            @AttributeOverride(name = "detail", column = @Column(name = "home_detail")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "home_zipCode"))
+    })
+    private Address homeAddress;
+
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "city", column = @Column(name = "company_city")),
+        @AttributeOverride(name = "district", column = @Column(name = "company_district")),
+        @AttributeOverride(name = "detail", column = @Column(name = "company_detail")),
+        @AttributeOverride(name = "zipCode", column = @Column(name = "company_zipCode"))
+    })
+    private Address companyAddress;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)

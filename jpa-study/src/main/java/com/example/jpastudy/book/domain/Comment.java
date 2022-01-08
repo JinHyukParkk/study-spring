@@ -24,6 +24,7 @@ public class Comment extends BaseEntity {
     private String comment;
 
     @ManyToOne
+    @ToString.Exclude
     private Review review;
 
 }

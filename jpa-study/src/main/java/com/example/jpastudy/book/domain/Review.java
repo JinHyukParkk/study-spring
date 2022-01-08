@@ -39,7 +39,7 @@ public class Review extends BaseEntity {
     @ToString.Exclude
     private Book book;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private List<Comment> comments;
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -29,4 +30,8 @@ public class Review extends BaseEntity {
 
     @ManyToOne
     private Book book;
+
+    @OneToMany
+    @JoinColumn(name = "review_id")
+    private List<Comment> comments;
 }

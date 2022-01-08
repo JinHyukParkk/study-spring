@@ -29,4 +29,9 @@ insert into book (`id`, `name`, `publisher_id`, `deleted`, `status`) values (2, 
 
 insert into book (`id`, `name`, `publisher_id`, `deleted`, `status`) values (3, 'Persistence 학습', 1, true, 200);
 
+insert into review(`id`, `title`, `content`, `score`, `user_id`, `book_id`) value (1, '인생책', 'good', 5.0, 1, 1);
+
+insert into review(`id`, `title`, `content`, `score`, `user_id`, `book_id`) value (2, '개망 책', '별로', 2.0, 2, 2);
+
+
 

@@ -14,12 +14,10 @@ class ReviewRepositoryTest {
     @Autowired
     private ReviewRepository reviewRepository;
 
-
     @Test
     void reviewTest() {
         List<Review> reviews = reviewRepository.findAll();
 
         System.out.println(reviews);
     }
-
 }

@@ -8,8 +8,10 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -18,7 +20,7 @@ import javax.persistence.ManyToOne;
 @EqualsAndHashCode(callSuper = true)
 public class Comment extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String comment;
@@ -27,4 +29,6 @@ public class Comment extends BaseEntity {
     @ToString.Exclude
     private Review review;
 
+    @Column(columnDefinition = "datatime")
+    private LocalDateTime commentedAt;
 }

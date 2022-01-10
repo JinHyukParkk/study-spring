@@ -12,6 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 @SpringBootTest
 @Transactional
 class UserRepositoryTest {
@@ -59,6 +62,11 @@ class UserRepositoryTest {
         userHistoryRepository.findAll().forEach(System.out::println);
 
         userRepository.findAllRowRecord().forEach(a -> System.out.println(a.values()));
+
+        assertAll(
+                () -> assertThat(userRepository.findById(9L).get().getHomeAddress()).isNull(),
+                () -> assertThat(userRepository.findById(9L).get().getHomeAddress()).isInstanceOf(Address.class)
+        );
     }
     /*
         Address 객체가 null일 경우와 필드 값이 모두 null 일 경우 영속성 제거

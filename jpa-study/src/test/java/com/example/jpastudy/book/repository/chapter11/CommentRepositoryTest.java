@@ -33,5 +33,12 @@ public class CommentRepositoryTest {
         System.out.println(comment);
 
         commentRepository.findAll().forEach(System.out::println);
+
+        System.out.println(commentRepository.findById(4L));
     }
 }
+/**
+ * 처음 영속성 컨텍스트에서는 날짜가 null 로 찍힘
+ * 하지만 영속성 컨텍스트를 비워주고 다시 DB에서 읽어올 경우 날짜가 찍혀있음
+ * Entity 객체에서 DynamicInsert 로 default 된 값을 DB에 넣어주고, 영속성 컨텍스트에서는 반영되어 있지 않가
+ */

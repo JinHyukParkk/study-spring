@@ -1,6 +1,0 @@
-spring:
-  batch:
-    job:
-      nemas: ${job.name:NONE}
-
-      initialize-schema: always

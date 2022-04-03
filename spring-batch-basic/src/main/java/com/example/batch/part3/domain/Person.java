@@ -1,11 +1,25 @@
 package com.example.batch.part3.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+@NoArgsConstructor
 @Getter
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public Person(String name, String age, String address) {
+        this(0, name, age, address);
+    }
 
     private String name;
 

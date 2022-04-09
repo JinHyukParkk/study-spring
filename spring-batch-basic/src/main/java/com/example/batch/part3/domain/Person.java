@@ -2,6 +2,7 @@ package com.example.batch.part3.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ public class Person {
         this(0, name, age, address);
     }
 
+    @Setter
     private String name;
 
     private String age;

@@ -9,6 +9,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,7 +31,7 @@ public class ItemProcessorConfiguration {
 
     @Bean
     public Job itemProcessorJob() {
-        return this.jobBuilderFactory.get("itemProcessorJob")
+        return this.jobBuilderFactory.get(".")
                 .incrementer(new RunIdIncrementer())
                 .start(this.itemProcessorStep())
                 .build();
@@ -42,13 +43,23 @@ public class ItemProcessorConfiguration {
                 .<Person, Person>chunk(10)
                 .reader(itemReader())
                 .processor(itemProcessor())
-                .writer()
+                .writer(itemWriter())
                 .build();
+    }
+
+    private ItemWriter<Person> itemWriter() {
+        return items -> items.forEach(x -> log.info("PERSON.ID : {}", x.getId()));
     }
 
     private ItemProcessor<? super Person,? extends Person> itemProcessor() {
         return item -> {
-        }
+            if (item.getId() % 2 == 0) {
+                item.setName("update name" + item.getId());
+                return item;
+            }
+
+            return null;
+        };
     }
 
     private ItemReader<Person> itemReader() {
@@ -61,6 +72,6 @@ public class ItemProcessorConfiguration {
         for (int i = 0; i < 10; i++) {
             items.add(new Person(i + 1, "test name" + i, "test age" + i, "test address" + i));
         }
-        return null;
+        return items;
     }
 }

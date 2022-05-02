@@ -3,6 +3,7 @@ package com.example.batch.part3.misson;
 import com.example.batch.part3.TestConfiguration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.test.JobLauncherTestUtils;
@@ -18,11 +19,17 @@ class SavePersonConfigurationTest {
     private JobLauncherTestUtils jobLauncherTestUtils;
 
     @Test
-    public void test_allow_duplicate() {
+    public void test_allow_duplicate() throws Exception {
         // given
-        JobParameters jobParametersnew = new JobParametersBuilder()
+        JobParameters jobParameters = new JobParametersBuilder()
                 .addString("allow_duplicate", "false")
                 .toJobParameters();
+
+        // when
+        JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters);
+
+        // then
+
 
     }
 

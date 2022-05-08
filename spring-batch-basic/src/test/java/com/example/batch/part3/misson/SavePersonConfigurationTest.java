@@ -1,11 +1,13 @@
 package com.example.batch.part3.misson;
 
 import com.example.batch.part3.TestConfiguration;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,6 +31,10 @@ class SavePersonConfigurationTest {
         JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters);
 
         // then
+        Assertions.assertThat(jobExecution.getStepExecutions().stream()
+                .mapToInt(StepExecution::getWriteCount)
+                .sum()
+        ).isEqualTo(3);
 
 
     }

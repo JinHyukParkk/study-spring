@@ -1,5 +1,6 @@
-package com.example.batch.part3;
+package com.example.batch.part3.config;
 
+import com.example.batch.part3.CustomItemReader;
 import com.example.batch.part3.domain.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;

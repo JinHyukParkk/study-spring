@@ -1,6 +1,8 @@
 package com.example.batch.part3.misson;
 
 import com.example.batch.part3.domain.Person;
+import com.example.batch.part3.exception.NotFoundNameException;
+import com.example.batch.part3.listener.SavePersonListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -8,6 +10,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaItemWriter;
@@ -16,7 +19,9 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.batch.item.support.CompositeItemWriter;
+import org.springframework.batch.item.support.builder.CompositeItemProcessorBuilder;
 import org.springframework.batch.item.support.builder.CompositeItemWriterBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -46,6 +51,8 @@ public class SavePersonConfiguration {
         return this.jobBuilderFactory.get("savePersonJob")
                 .incrementer(new RunIdIncrementer())
                 .start(this.savePersonStep(null))
+                .listener(new SavePersonListener.SavePersonJobExcutionListener())
+                .listener(new SavePersonListener.SavePersonAnnotationJobExecutionListener())
                 .build();
     }
 
@@ -55,9 +62,41 @@ public class SavePersonConfiguration {
         return this.stepBuilderFactory.get("savePersonStep")
                 .<Person, Person>chunk(10)
                 .reader(itemReader())
-                .processor(new DuplicateValidationProcessor<>(Person::getName, Boolean.parseBoolean(allowDuplicate)))
+//                .processor(new DuplicateValidationProcessor<>(Person::getName, Boolean.parseBoolean(allowDuplicate)))
+                .processor(itmeProcessor(allowDuplicate))
                 .writer(itemWriter())
+                .listener(new SavePersonListener.SaverPersonStepExecutionListener())
+                .faultTolerant()
+                .skip(NotFoundNameException.class)
+                .skipLimit(3)
                 .build();
+    }
+
+    private ItemProcessor<? super Person,? extends Person> itmeProcessor(String allowDuplicate) throws Exception {
+        DuplicateValidationProcessor<Person> personDuplicateValidationProcessor =
+                new DuplicateValidationProcessor<>(Person::getName, Boolean.parseBoolean(allowDuplicate));
+
+        ItemProcessor<Person, Person> validationProcessor = item -> {
+            if (item.isNotEmptyName()) {
+                return item;
+            }
+
+            try {
+                throw new NotFoundNameException();
+            } catch (NotFoundNameException e) {
+                e.printStackTrace();
+            }
+        };
+
+        CompositeItemProcessor<Person, Person> itemProcessor = new CompositeItemProcessorBuilder()
+                .delegates(validationProcessor, personDuplicateValidationProcessor)
+                .build();
+
+        itemProcessor.afterPropertiesSet();
+
+        return itemProcessor;
+
+
     }
 
     private ItemWriter<? super Person> itemWriter() throws Exception {

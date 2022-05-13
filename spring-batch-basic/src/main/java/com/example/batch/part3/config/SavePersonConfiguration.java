@@ -4,6 +4,7 @@ import com.example.batch.part3.domain.Person;
 import com.example.batch.part3.exception.NotFoundNameException;
 import com.example.batch.part3.listener.SavePersonListener;
 import com.example.batch.part3.processor.DuplicateValidationProcessor;
+import com.example.batch.part3.processor.PersonValidationRetryProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -88,7 +89,7 @@ public class SavePersonConfiguration {
         };
 
         CompositeItemProcessor<Person, Person> itemProcessor = new CompositeItemProcessorBuilder()
-                .delegates(validationProcessor, personDuplicateValidationProcessor)
+                .delegates(new PersonValidationRetryProcessor(), validationProcessor, personDuplicateValidationProcessor)
                 .build();
 
         itemProcessor.afterPropertiesSet();

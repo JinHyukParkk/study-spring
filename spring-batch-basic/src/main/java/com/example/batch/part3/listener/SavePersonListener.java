@@ -60,6 +60,5 @@ public class SavePersonListener {
 
             log.info("annotationAfterJob : {}", sum);
         }
-
     }
 }

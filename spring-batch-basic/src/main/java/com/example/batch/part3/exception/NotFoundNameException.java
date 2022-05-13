@@ -1,4 +1,4 @@
 package com.example.batch.part3.exception;
 
-public class  NotFoundNameException extends Throwable {
+public class  NotFoundNameException extends RuntimeException {
 }

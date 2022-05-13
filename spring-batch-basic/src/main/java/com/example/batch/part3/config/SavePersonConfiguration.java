@@ -1,8 +1,9 @@
-package com.example.batch.part3.misson;
+package com.example.batch.part3.config;
 
 import com.example.batch.part3.domain.Person;
 import com.example.batch.part3.exception.NotFoundNameException;
 import com.example.batch.part3.listener.SavePersonListener;
+import com.example.batch.part3.processor.DuplicateValidationProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -68,7 +69,9 @@ public class SavePersonConfiguration {
                 .listener(new SavePersonListener.SaverPersonStepExecutionListener())
                 .faultTolerant()
                 .skip(NotFoundNameException.class)
-                .skipLimit(3)
+                .skipLimit(2)
+                .retry(NotFoundNameException.class)
+                .retryLimit(3)
                 .build();
     }
 
@@ -81,11 +84,7 @@ public class SavePersonConfiguration {
                 return item;
             }
 
-            try {
-                throw new NotFoundNameException();
-            } catch (NotFoundNameException e) {
-                e.printStackTrace();
-            }
+            throw new NotFoundNameException();
         };
 
         CompositeItemProcessor<Person, Person> itemProcessor = new CompositeItemProcessorBuilder()
@@ -95,8 +94,6 @@ public class SavePersonConfiguration {
         itemProcessor.afterPropertiesSet();
 
         return itemProcessor;
-
-
     }
 
     private ItemWriter<? super Person> itemWriter() throws Exception {

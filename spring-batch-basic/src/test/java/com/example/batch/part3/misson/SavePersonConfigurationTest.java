@@ -1,6 +1,7 @@
 package com.example.batch.part3.misson;
 
 import com.example.batch.part3.TestConfiguration;
+import com.example.batch.part3.config.SavePersonConfiguration;
 import com.example.batch.part3.repository.PersonRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.After;

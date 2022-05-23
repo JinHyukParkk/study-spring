@@ -37,6 +37,17 @@ public class User {
     }
 
     public enum Level {
-        VIP, GOLD, SILVER, NORMAL
+        VIP(500_000, null),
+        GOLD(500_000, VIP),
+        SILVER(300_000, GOLD),
+        NORMAL(200_000, SILVER);
+
+        private final int nextAmount;
+        private final Level nextLevel;
+
+        Level(int nextAmount, Level nextLevel) {
+            this.nextAmount = nextAmount;
+            this.nextLevel = nextLevel;
+        }
     }
 }

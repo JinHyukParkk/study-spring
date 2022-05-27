@@ -64,7 +64,7 @@ public class User {
             this.nextLevel = nextLevel;
         }
 
-        public static boolean availableLevelUp(Level level, int totalAmount) {
+        private static boolean availableLevelUp(Level level, int totalAmount) {
             if (Objects.isNull(level)) {
                 return false;
             }
@@ -76,8 +76,21 @@ public class User {
             return totalAmount >= level.nextAmount;
         }
 
-        public static Level getNextLevel(int totalAmount) {
-            
+        private static Level getNextLevel(int totalAmount) {
+            if (totalAmount >= Level.VIP.nextAmount) {
+                return VIP;
+            }
+            if (totalAmount >= Level.GOLD.nextAmount) {
+                return GOLD.nextLevel;
+            }
+            if (totalAmount >= Level.SILVER.nextAmount) {
+                return SILVER.nextLevel;
+            }
+            if (totalAmount >= Level.NORMAL.nextAmount) {
+                return NORMAL.nextLevel;
+            }
+
+            return NORMAL;
         }
     }
 }

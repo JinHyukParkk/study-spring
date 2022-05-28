@@ -5,7 +5,7 @@ import com.example.batch.part3.config.SavePersonConfiguration;
 import com.example.batch.part3.repository.PersonRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -41,7 +41,7 @@ public class SavePersonConfigurationTest {
                 .mapToInt(StepExecution::getWriteCount)
                 .sum())
                 .isEqualTo(personRepository.count())
-                .isEqualTo(3);
+                .isEqualTo(5);
 
     }
 
@@ -58,8 +58,7 @@ public class SavePersonConfigurationTest {
         // then
         Assertions.assertThat(jobExecution.getStepExecutions().stream()
                 .mapToInt(StepExecution::getWriteCount)
-                .sum()
-        )
+                .sum())
                 .isEqualTo(personRepository.count())
                 .isEqualTo(4);
     }

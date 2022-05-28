@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 @SpringBatchTest
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { UserConfiguration.class, TestConfiguration.class})
+@ContextConfiguration(classes = { UserConfiguration.class, TestConfiguration.class} )
 class UserConfigurationTest {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.example.batch.part4;
+package com.example.batch.part5;
 
 import lombok.Builder;
 import lombok.Getter;

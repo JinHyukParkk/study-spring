@@ -64,6 +64,10 @@ public class UserConfiguration {
                 .start(this.saveUserStep())
                 .next(this.userLevelUpStep())
                 .listener(new LevelUpJobExecutionListener(userRepository))
+                .next(new JobParametersDecide("date"))
+                .on(JobParametersDecide.CONTINUE.getName())
+                .to(this.orderStatisticStep(null))
+                .build()
                 .build();
     }
 

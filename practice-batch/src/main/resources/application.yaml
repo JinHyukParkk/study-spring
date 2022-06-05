@@ -1,0 +1,13 @@
+spring:
+  batch:
+    job:
+      names: ${job.name:NONE}
+      initialize-schema: always
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    url: jdbc:mysql://hyukDb:3000/spring_batch?characterEncoding=UTF-8&serverTimezone=UTC&rewriteBatchedStatements=true
+    username: root
+    password: 1234
+

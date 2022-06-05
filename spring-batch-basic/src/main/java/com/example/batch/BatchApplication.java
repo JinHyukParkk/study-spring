@@ -22,6 +22,11 @@ public class BatchApplication {
     @Primary
     TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(10);
+        taskExecutor.setMaxPoolSize(20);
+        taskExecutor.setThreadNamePrefix("batch-thread-");
+        taskExecutor.initialize();
+
         return taskExecutor;
     }
 

@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Level level = Level.NORMAL;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)  // Orders의 합을 구해야하므로 User와 Orders 관계에서 항상 조회해야하기 때문에 'EAGER'로 설정함
     @JoinColumn(name = "user_id")
     private List<Orders> orders;
 

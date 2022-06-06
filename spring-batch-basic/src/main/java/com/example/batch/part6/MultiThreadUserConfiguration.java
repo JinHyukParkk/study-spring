@@ -1,5 +1,9 @@
-package com.example.batch.part4;
+package com.example.batch.part6;
 
+import com.example.batch.part4.LevelUpJobExecutionListener;
+import com.example.batch.part4.SaveUserTasklet;
+import com.example.batch.part4.User;
+import com.example.batch.part4.UserRepository;
 import com.example.batch.part5.JobParametersDecide;
 import com.example.batch.part5.OrderStatistics;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.task.TaskExecutor;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -36,26 +41,29 @@ import java.util.Map;
 
 @Configuration
 @Slf4j
-public class UserConfiguration {
+public class MultiThreadUserConfiguration {
 
-    private final String JOB_NAME = "userJob";
+    private final String JOB_NAME = "multiThreadUserJob";
     private final int CHUNK = 100;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final UserRepository userRepository;
     private final EntityManagerFactory entityManagerFactory;
     private final DataSource dataSource;
+    private final TaskExecutor taskExecutor;
 
-    public UserConfiguration(JobBuilderFactory jobBuilderFactory,
-                             StepBuilderFactory stepBuilderFactory,
-                             UserRepository userRepository,
-                             EntityManagerFactory entityManagerFactory,
-                             DataSource dataSource) {
+    public MultiThreadUserConfiguration(JobBuilderFactory jobBuilderFactory,
+                                        StepBuilderFactory stepBuilderFactory,
+                                        UserRepository userRepository,
+                                        EntityManagerFactory entityManagerFactory,
+                                        DataSource dataSource,
+                                        TaskExecutor taskExecutor) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
         this.userRepository = userRepository;
         this.entityManagerFactory = entityManagerFactory;
         this.dataSource = dataSource;
+        this.taskExecutor = taskExecutor;
     }
 
     @Bean(JOB_NAME)
@@ -152,6 +160,8 @@ public class UserConfiguration {
                 .reader(itemReader())
                 .processor(itemProcessor())
                 .writer(itemWriter())
+                .taskExecutor(this.taskExecutor)
+                .throttleLimit(8)  // 기본값 4, 몇개의 쓰레드로 chunk를 처리할건지
                 .build();
     }
 

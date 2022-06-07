@@ -12,7 +12,10 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.partition.PartitionHandler;
+import org.springframework.batch.core.partition.support.TaskExecutorPartitionHandler;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -41,9 +44,9 @@ import java.util.Map;
 
 @Configuration
 @Slf4j
-public class MultiThreadUserConfiguration {
+public class PartitionUserConfiguration {
 
-    private final String JOB_NAME = "multiThreadUserJob";
+    private final String JOB_NAME = "partitionUserJob";
     private final int CHUNK = 100;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
@@ -52,12 +55,12 @@ public class MultiThreadUserConfiguration {
     private final DataSource dataSource;
     private final TaskExecutor taskExecutor;
 
-    public MultiThreadUserConfiguration(JobBuilderFactory jobBuilderFactory,
-                                        StepBuilderFactory stepBuilderFactory,
-                                        UserRepository userRepository,
-                                        EntityManagerFactory entityManagerFactory,
-                                        DataSource dataSource,
-                                        TaskExecutor taskExecutor) {
+    public PartitionUserConfiguration(JobBuilderFactory jobBuilderFactory,
+                                      StepBuilderFactory stepBuilderFactory,
+                                      UserRepository userRepository,
+                                      EntityManagerFactory entityManagerFactory,
+                                      DataSource dataSource,
+                                      TaskExecutor taskExecutor) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
         this.userRepository = userRepository;
@@ -71,7 +74,7 @@ public class MultiThreadUserConfiguration {
         return this.jobBuilderFactory.get(JOB_NAME)
                 .incrementer(new RunIdIncrementer())
                 .start(this.saveUserStep())
-                .next(this.userLevelUpStep())
+                .next(this.userLevelUpManagerStep())
                 .listener(new LevelUpJobExecutionListener(userRepository))
                 .next(new JobParametersDecide("date"))
                 .on(JobParametersDecide.CONTINUE.getName())
@@ -146,23 +149,41 @@ public class MultiThreadUserConfiguration {
         return itemReader;
     }
 
-    @Bean(name = JOB_NAME + "_saveUserStep")
+    @Bean(JOB_NAME + "_saveUserStep")
     public Step saveUserStep() {
         return this.stepBuilderFactory.get(JOB_NAME + "_saveUserStep")
                 .tasklet(new SaveUserTasklet(userRepository))
                 .build();
     }
 
-    @Bean(name = JOB_NAME + "_userLevelUpStep")
+    @Bean(JOB_NAME + "_userLevelUpStep")
     public Step userLevelUpStep() throws Exception {
         return this.stepBuilderFactory.get(JOB_NAME + "_userLevelUpStep")
                 .<User, User>chunk(CHUNK)
-                .reader(itemReader())
+                .reader(itemReader(null, null))
                 .processor(itemProcessor())
                 .writer(itemWriter())
-                .taskExecutor(this.taskExecutor)
-                .throttleLimit(8)  // 기본값 4, 몇개의 쓰레드로 chunk를 처리할건지
                 .build();
+    }
+
+    @Bean(JOB_NAME + "_userLevelUpStep.manager")
+    public Step userLevelUpManagerStep() throws Exception {
+        return this.stepBuilderFactory.get(JOB_NAME + "_userLevelUpStep.manager")
+                .partitioner(JOB_NAME + "_userLevelUpStep", new UserLevelUpPartitioner(userRepository))
+                .step(userLevelUpStep())
+                .partitionHandler(taskExecutorPartitionHandler())
+                .build();
+    }
+
+    @Bean(JOB_NAME + "_taskExecutorPartitionHandler")
+    PartitionHandler taskExecutorPartitionHandler() throws Exception {
+        TaskExecutorPartitionHandler handler = new TaskExecutorPartitionHandler();
+
+        handler.setStep(userLevelUpStep());
+        handler.setTaskExecutor(this.taskExecutor);
+        handler.setGridSize(8);
+
+        return handler;
     }
 
     private ItemWriter<? super User> itemWriter() {
@@ -184,9 +205,17 @@ public class MultiThreadUserConfiguration {
         };
     }
 
-    private ItemReader<? extends User> itemReader() throws Exception {
+    @Bean
+    @StepScope
+    JpaPagingItemReader<? extends User> itemReader(@Value("#{stepExecutionContext[minId]}") Long minId,
+                                                @Value("#{stepExecutionContext[maxId]}") Long maxId) throws Exception {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("minId", minId);
+        parameters.put("maxId", maxId);
+
         JpaPagingItemReader<User> itemReader = new JpaPagingItemReaderBuilder<User>()
-                .queryString("select u from User u ")
+                .queryString("select u from User u where u.id between :minId and :maxId")
+                .parameterValues(parameters)
                 .entityManagerFactory(entityManagerFactory)
                 .pageSize(CHUNK)  // chunk size 와 동일하게
                 .name(JOB_NAME + "_userItemReader")

@@ -17,9 +17,9 @@ public class HelloStep {
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
-    @Bean
+    @Bean("printHelloStep")
     public Step printHelloStep() {
-        return stepBuilderFactory.get("helloStep")
+        return stepBuilderFactory.get("printHelloStep")
                 .tasklet((contribution, chunkContext) -> {
                     log.info("hello batch world.");
                     return RepeatStatus.FINISHED;

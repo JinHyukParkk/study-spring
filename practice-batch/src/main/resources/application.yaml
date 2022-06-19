@@ -6,8 +6,17 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-  datasource:
-    url: jdbc:mysql://hyukDb:3000/spring_batch?characterEncoding=UTF-8&serverTimezone=UTC&rewriteBatchedStatements=true
-    username: root
-    password: 1234
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    database-platform: org.hibernate.dialect.H2Dialect
+#    url: jdbc:mysql://hyukDb:3000/spring_batch?characterEncoding=UTF-8&serverTimezone=UTC&rewriteBatchedStatements=true
+#    username: root
+#    password: 1234

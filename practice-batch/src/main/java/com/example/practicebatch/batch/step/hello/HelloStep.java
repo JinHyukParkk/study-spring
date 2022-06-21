@@ -17,7 +17,7 @@ public class HelloStep {
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
-    @Bean("printHelloStep")
+    @Bean(name = "printHelloStep")
     public Step printHelloStep() {
         return stepBuilderFactory.get("printHelloStep")
                 .tasklet((contribution, chunkContext) -> {

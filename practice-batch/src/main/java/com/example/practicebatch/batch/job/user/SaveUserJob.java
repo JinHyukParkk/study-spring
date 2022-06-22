@@ -22,6 +22,7 @@ public class SaveUserJob {
     @Bean(SERVICE_NAME + "Job")
     public Job userJob() {
         return this.jobBuilderFactory.get(SERVICE_NAME + "Job")
+                .start(saveUserSettingStep)
                 .build();
     }
 }

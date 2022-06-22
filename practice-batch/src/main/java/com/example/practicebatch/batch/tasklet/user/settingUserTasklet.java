@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SaveUserTasklet implements Tasklet {
+public class settingUserTasklet implements Tasklet {
 
     private final int SIZE = 100;
     private final UserRepository userRepository;
 
-    public SaveUserTasklet(UserRepository userRepository) {
+    public settingUserTasklet(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

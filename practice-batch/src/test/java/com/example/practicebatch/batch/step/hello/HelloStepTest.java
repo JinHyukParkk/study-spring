@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +26,22 @@ class HelloStepTest {
     private JobLauncherTestUtils jobLauncherTestUtils;
 
     @Test
-    public void 정상작동하는지_확인한다() {
+    public void printHelloStep_확인한다() {
         // given
 
         // when
         JobExecution jobExecution = jobLauncherTestUtils.launchStep("printHelloStep");
+
+        // then
+        assertThat(jobExecution.getStatus()).isEqualTo(BatchStatus.FAILED);
+    }
+
+    @Test
+    public void throwErrorStep_확인한다() {
+        // given
+
+        // when
+        JobExecution jobExecution = jobLauncherTestUtils.launchStep("throwErrorStep");
 
         // then
         assertThat(jobExecution.getStatus()).isEqualTo(BatchStatus.COMPLETED);

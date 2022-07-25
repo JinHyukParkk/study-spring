@@ -35,8 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-*.properties
-.DS_Store
-jpa-study/src/main/resources/application.yml
-spring-batch-basic/src/main/resources/application.yml
-spring-cloud/gradle

@@ -16,8 +16,8 @@ public class HelloJob {
     private final Step throwErrorStep;
 
     public HelloJob(JobBuilderFactory jobBuilderFactory,
-                    Step printHelloStep,
-                    Step throwErrorStep) {
+            Step printHelloStep,
+            Step throwErrorStep) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.printHelloStep = printHelloStep;
         this.throwErrorStep = throwErrorStep;

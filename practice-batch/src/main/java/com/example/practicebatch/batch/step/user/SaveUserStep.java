@@ -15,7 +15,7 @@ public class SaveUserStep {
     private final UserRepository userRepository;
 
     public SaveUserStep(StepBuilderFactory stepBuilderFactory,
-                        UserRepository userRepository) {
+            UserRepository userRepository) {
         this.stepBuilderFactory = stepBuilderFactory;
         this.userRepository = userRepository;
     }

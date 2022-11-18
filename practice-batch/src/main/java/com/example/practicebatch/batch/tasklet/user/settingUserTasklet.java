@@ -2,14 +2,13 @@ package com.example.practicebatch.batch.tasklet.user;
 
 import com.example.practicebatch.domain.repository.UserRepository;
 import com.example.practicebatch.domain.user.User;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class settingUserTasklet implements Tasklet {
 
@@ -21,7 +20,8 @@ public class settingUserTasklet implements Tasklet {
     }
 
     @Override
-    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext)
+            throws Exception {
         List<User> users = createUsers();
 
         Collections.shuffle(users);

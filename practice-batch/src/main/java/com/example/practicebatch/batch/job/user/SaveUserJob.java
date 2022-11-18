@@ -14,7 +14,7 @@ public class SaveUserJob {
     private final Step saveUserSettingStep;
 
     public SaveUserJob(JobBuilderFactory jobBuilderFactory,
-                       Step saveUserSettingStep) {
+            Step saveUserSettingStep) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.saveUserSettingStep = saveUserSettingStep;
     }

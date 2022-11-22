@@ -15,18 +15,19 @@ public class TestService {
         System.out.println("TestService 생성자 호출");
         try {
             testComponent.print();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("생성자 단계에서 호출 실패");
         }
     }
 
     @PostConstruct
     public void execute() {
+        System.out.println("#### PostConstruct ###");
         System.out.println("TestService @PostConstruct 호출");
 
         try {
             testComponent.print();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("@PostConstruct 단계에서 호출 실패");
         }
     }

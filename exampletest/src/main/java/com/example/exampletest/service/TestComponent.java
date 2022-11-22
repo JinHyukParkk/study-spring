@@ -6,5 +6,6 @@ import org.springframework.stereotype.Component;
 public class TestComponent {
 
     public void print() {
-        System.out.println("print() 실행");    }
+        System.out.println("print() 실행");
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.exampletest.service;
 
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +13,7 @@ public class TestService {
     public TestService() {
         System.out.println("TestService 생성자 호출");
         try {
+            System.out.println("testComponent : " + testComponent.getClass());
             testComponent.print();
         } catch (Exception e) {
             System.out.println("생성자 단계에서 호출 실패");
@@ -26,6 +26,7 @@ public class TestService {
         System.out.println("TestService @PostConstruct 호출");
 
         try {
+            System.out.println("testComponent : " + testComponent.getClass());
             testComponent.print();
         } catch (Exception e) {
             System.out.println("@PostConstruct 단계에서 호출 실패");

@@ -1,13 +1,11 @@
 package com.example.exampletest.service;
 
+import com.example.exampletest.domain.CheckPoint;
+import com.example.exampletest.repository.CheckPointRepository;
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.example.exampletest.domain.CheckPoint;
-import com.example.exampletest.repository.CheckPointRepository;
 
 @Transactional
 @Service
@@ -22,6 +20,6 @@ public class CheckPointService {
         checkPointRepository.save(new CheckPoint("a"));
         checkPointRepository.save(new CheckPoint("b"));
         checkPointRepository.save(new CheckPoint("c"));
-        throw new RuntimeException();
+//        throw new RuntimeException();
     }
 }

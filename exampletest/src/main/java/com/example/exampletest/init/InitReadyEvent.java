@@ -1,7 +1,7 @@
-package com.example.exampletest;
+package com.example.exampletest.init;
 
-import com.example.exampletest.domain.CheckPoint;
-import com.example.exampletest.repository.CheckPointRepository;
+import com.example.exampletest.init.domain.CheckPoint;
+import com.example.exampletest.init.repository.CheckPointRepository;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

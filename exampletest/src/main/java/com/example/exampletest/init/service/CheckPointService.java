@@ -1,7 +1,7 @@
-package com.example.exampletest.service;
+package com.example.exampletest.init.service;
 
-import com.example.exampletest.domain.CheckPoint;
-import com.example.exampletest.repository.CheckPointRepository;
+import com.example.exampletest.init.domain.CheckPoint;
+import com.example.exampletest.init.repository.CheckPointRepository;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

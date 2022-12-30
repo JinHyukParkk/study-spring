@@ -1,8 +1,8 @@
-package com.example.exampletest.repository;
+package com.example.exampletest.init.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.exampletest.domain.CheckPoint;
+import com.example.exampletest.init.domain.CheckPoint;
 
 public interface CheckPointRepository extends JpaRepository<CheckPoint, Long> {
 

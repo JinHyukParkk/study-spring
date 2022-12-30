@@ -1,6 +1,6 @@
-package com.example.exampletest.service;
+package com.example.exampletest.init.service;
 
-import com.example.exampletest.aop.TimeTrace;
+import com.example.exampletest.init.aop.TimeTrace;
 import org.springframework.stereotype.Component;
 
 @Component

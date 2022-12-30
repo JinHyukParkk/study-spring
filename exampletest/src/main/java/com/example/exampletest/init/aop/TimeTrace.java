@@ -1,4 +1,4 @@
-package com.example.exampletest.aop;
+package com.example.exampletest.init.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
-package com.example.exampletest.config;
+package com.example.exampletest.init.config;
 
-import com.example.exampletest.aop.TimeTraceAop;
+import com.example.exampletest.init.aop.TimeTraceAop;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 

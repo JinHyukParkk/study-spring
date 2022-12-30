@@ -1,4 +1,4 @@
-package com.example.exampletest.service;
+package com.example.exampletest.init.service;
 
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;

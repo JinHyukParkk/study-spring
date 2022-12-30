@@ -1,4 +1,4 @@
-package com.example.exampletest.aop;
+package com.example.exampletest.init.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,7 +11,7 @@ public class TimeTraceAop {
 
     //    @Around("execution(* com.example..*(..))")
 //    @Around("execution(* com.example.exampletest.service..*(..))")
-    @Around("@annotation(TimeTrace)")
+    @Around("@annotation(com.example.exampletest.init.aop.TimeTrace)")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         System.out.println("START : " + joinPoint.toLongString());

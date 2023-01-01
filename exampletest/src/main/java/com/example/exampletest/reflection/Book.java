@@ -1,5 +1,6 @@
 package com.example.exampletest.reflection;
 
+@MyAnnotation
 public class Book {
 
     private static String B = "BOOK";

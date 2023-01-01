@@ -13,12 +13,19 @@ public class Main {
 
         new Main().reflectionInterfaceTest();
 
+        new Main().reflectionAnnotaionTest();
+
         System.out.println(MyBook.class.getSuperclass());
     }
 
-    private void reflectionInterfaceTest() {
-        Class<Book> bookClass = Book.class;
+    private void reflectionAnnotaionTest() {
 
+        System.out.println("어노테이션 확인");
+        Arrays.stream(MyBook.class.getInterfaces()).forEach(System.out::println);
+    }
+
+    private void reflectionInterfaceTest() {
+        System.out.println("인터페이스 확인");
         Arrays.stream(MyBook.class.getInterfaces()).forEach(System.out::println);
     }
 

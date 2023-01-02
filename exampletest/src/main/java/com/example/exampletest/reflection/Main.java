@@ -1,10 +1,13 @@
 package com.example.exampletest.reflection;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+            throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Class<Book> bookClass = Book.class;
 
         new Main().reflectionFieldTest();
@@ -15,7 +18,17 @@ public class Main {
 
         new Main().reflectionAnnotaionTest();
 
+        new Main().reflectionContructorTest();
+
         System.out.println(MyBook.class.getSuperclass());
+    }
+
+    private void reflectionContructorTest()
+            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Class<Book> bookClass = Book.class;
+        Constructor<?> constructor = bookClass.getConstructor(String.class);
+        Book book = (Book) constructor.newInstance("book");
+        System.out.println(book);
     }
 
     private void reflectionAnnotaionTest() {

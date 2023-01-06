@@ -14,8 +14,9 @@ class ContainerServiceTest {
 
     @Test
     public void getObject_BookService() {
-        BookRepository bookRepository = ContainerService.getObject(BookRepository.class);
-        assertNotNull(bookRepository);
+        BookService bookService = ContainerService.getObject(BookService.class);
+        assertNotNull(bookService);
+        assertNotNull(bookService.bookRepository);
     }
 
 

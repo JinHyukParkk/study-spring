@@ -20,4 +20,26 @@ class BookServiceTest {
         assertNotNull(bookService);
         assertNotNull(bookService.bookRepository);
     }
+
+    @Test
+    public void test() {
+        Book book = new Book();
+        Book book1 = new Book();
+
+        System.out.println(book1.equals(book));
+        System.out.println(book1 == book);
+        System.out.println(book);
+        System.out.println(book1);
+    }
+
+    @Test
+    public void test1() {
+        Book book = new Book("1");
+        Book book1 = new Book("2");
+
+        System.out.println(book1.equals(book));
+        System.out.println(book1 == book);
+        System.out.println(book);
+        System.out.println(book1);
+    }
 }

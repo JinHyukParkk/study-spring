@@ -1,7 +1,9 @@
 package com.example.jpastudy.book.domain;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -11,7 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)

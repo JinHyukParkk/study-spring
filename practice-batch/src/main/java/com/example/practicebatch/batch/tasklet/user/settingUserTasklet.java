@@ -58,6 +58,8 @@ public class settingUserTasklet implements Tasklet {
                     .build());
         }
 
+        System.out.println("유저 생성");
+
         return users;
     }
 }

@@ -9,15 +9,16 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Slf4j
-public class HelloJob {
+public class HelloJobConfig {
 
+    public static final String HELLO_JOB = "HELLO_JOB";
     private final JobBuilderFactory jobBuilderFactory;
     private final Step printHelloStep;
     private final Step throwErrorStep;
 
-    public HelloJob(JobBuilderFactory jobBuilderFactory,
-            Step printHelloStep,
-            Step throwErrorStep) {
+    public HelloJobConfig(JobBuilderFactory jobBuilderFactory,
+                          Step printHelloStep,
+                          Step throwErrorStep) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.printHelloStep = printHelloStep;
         this.throwErrorStep = throwErrorStep;
@@ -25,10 +26,10 @@ public class HelloJob {
 
     @Bean
     public Job helleJob() {
-        return jobBuilderFactory.get("helloJob")
-                .start(printHelloStep)
-                .next(throwErrorStep)
-                .build();
+        return jobBuilderFactory.get("HELLO_JOB")
+            .start(printHelloStep)
+            .next(throwErrorStep)
+            .build();
 
     }
 }

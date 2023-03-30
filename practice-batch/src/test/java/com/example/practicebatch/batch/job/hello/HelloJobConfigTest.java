@@ -1,7 +1,5 @@
 package com.example.practicebatch.batch.job.hello;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.example.practicebatch.batch.TestConfiguration;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBatchTest
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {
-        HelloJob.class,
-        TestConfiguration.class})
-class HelloJobTest {
+    HelloJobConfig.class,
+    TestConfiguration.class})
+class HelloJobConfigTest {
 
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
@@ -29,7 +29,7 @@ class HelloJobTest {
     public void 정상작동하는지_확인한다() throws Exception {
         // given
         JobParameters jobParameters = new JobParametersBuilder()
-                .toJobParameters();
+            .toJobParameters();
 
         // when
         JobExecution jobExecution = jobLauncherTestUtils.launchJob(jobParameters);

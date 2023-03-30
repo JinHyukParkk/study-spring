@@ -1,7 +1,7 @@
 package com.example.practicebatch.batch.step.hello;
 
 import com.example.practicebatch.batch.TestConfiguration;
-import com.example.practicebatch.batch.job.hello.HelloJob;
+import com.example.practicebatch.batch.job.hello.HelloJobConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.BatchStatus;
@@ -17,10 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBatchTest
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {
-        TestConfiguration.class,
-        HelloJob.class,
-        HelloStep.class})
-class HelloStepTest {
+    TestConfiguration.class,
+    HelloJobConfig.class,
+    HelloStepConfig.class})
+class HelloStepConfigTest {
 
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;

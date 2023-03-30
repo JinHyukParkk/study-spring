@@ -10,14 +10,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SaveUserStep {
+public class SaveUserStepConfig {
 
     private final String STEP_NAME = "saveUser";
     private final StepBuilderFactory stepBuilderFactory;
     private final UserRepository userRepository;
 
-    public SaveUserStep(StepBuilderFactory stepBuilderFactory,
-                        UserRepository userRepository) {
+    public SaveUserStepConfig(StepBuilderFactory stepBuilderFactory,
+                              UserRepository userRepository) {
         this.stepBuilderFactory = stepBuilderFactory;
         this.userRepository = userRepository;
     }

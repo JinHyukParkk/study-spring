@@ -44,7 +44,7 @@ import java.util.Map;
 public class MultiThreadUserConfiguration {
 
     private final String JOB_NAME = "multiThreadUserJob";
-    private final int CHUNK = 100;
+    private final int CHUNK = 1000;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final UserRepository userRepository;

@@ -47,7 +47,7 @@ import java.util.Map;
 public class PartitionUserConfiguration {
 
     private final String JOB_NAME = "partitionUserJob";
-    private final int CHUNK = 100;
+    private final int CHUNK = 1000;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final UserRepository userRepository;

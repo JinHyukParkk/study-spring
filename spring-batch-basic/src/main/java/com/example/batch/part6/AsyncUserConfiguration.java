@@ -47,13 +47,13 @@ import java.util.concurrent.Future;
 public class AsyncUserConfiguration {
 
     private final String JOB_NAME = "asyncUserJob";
-    private final int CHUNK = 100;
+    private final int CHUNK = 1000;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final UserRepository userRepository;
     private final EntityManagerFactory entityManagerFactory;
     private final DataSource dataSource;
-    private final TaskExecutor taskExecutor;
+     private final TaskExecutor taskExecutor;
 
     public AsyncUserConfiguration(JobBuilderFactory jobBuilderFactory,
                                   StepBuilderFactory stepBuilderFactory,

@@ -39,7 +39,7 @@ import java.util.Map;
 public class UserConfiguration {
 
     private final String JOB_NAME = "userJob";
-    private final int CHUNK = 100;
+    private final int CHUNK = 1000;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final UserRepository userRepository;

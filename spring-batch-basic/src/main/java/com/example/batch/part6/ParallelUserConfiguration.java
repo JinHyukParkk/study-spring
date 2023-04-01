@@ -51,7 +51,7 @@ import java.util.Map;
 public class ParallelUserConfiguration {
 
     private final String JOB_NAME = "parallerUserJob";
-    private final int CHUNK = 100;
+    private final int CHUNK = 1000;
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final UserRepository userRepository;

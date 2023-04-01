@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SaveUserStepConfig {
 
-    private final String STEP_NAME = "saveUser";
     private final StepBuilderFactory stepBuilderFactory;
     private final UserRepository userRepository;
 
@@ -22,9 +21,9 @@ public class SaveUserStepConfig {
         this.userRepository = userRepository;
     }
 
-    @Bean(STEP_NAME + "SettingStep")
+    @Bean
     public Step saveUserSettingStep() {
-        return this.stepBuilderFactory.get(STEP_NAME + "SettingStep")
+        return this.stepBuilderFactory.get("saveUserSettingStep")
             .tasklet(new settingUserTasklet(userRepository))
             .build();
     }
@@ -33,7 +32,7 @@ public class SaveUserStepConfig {
     @JobScope
     public Step testSettingStep(@Value("#{jobParameters[userId]}") String userId) {
         System.out.println("testSettingStep : " + userId);
-        return this.stepBuilderFactory.get(STEP_NAME + "SettingStep")
+        return this.stepBuilderFactory.get("testSettingStep")
             .tasklet(new settingUserTasklet(userRepository))
             .build();
     }

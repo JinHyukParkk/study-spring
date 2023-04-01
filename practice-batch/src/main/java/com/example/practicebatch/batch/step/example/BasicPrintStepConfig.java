@@ -18,7 +18,7 @@ public class BasicPrintStepConfig {
     private final StepBuilderFactory stepBuilderFactory;
 
     @Bean
-    public Step print1() {
+    public Step print1Step() {
         return stepBuilderFactory.get("print1")
             .tasklet((stepContribution, chunkContext) -> {
                 Thread.sleep(1000);
@@ -30,7 +30,7 @@ public class BasicPrintStepConfig {
 
     @Bean
     @JobScope
-    public Step print2(@Value("#{jobParameters[userId]}") String userId) {
+    public Step print2Step(@Value("#{jobParameters[userId]}") String userId) {
         return stepBuilderFactory.get("print2")
             .tasklet((stepContribution, chunkContext) -> {
                 Thread.sleep(1000);
@@ -42,7 +42,7 @@ public class BasicPrintStepConfig {
 
     @Bean
     @JobScope
-    public Step print3(@Value("#{jobParameters[userId]}") String userId) {
+    public Step print3Step(@Value("#{jobParameters[userId]}") String userId) {
         return stepBuilderFactory.get("print3")
             .tasklet((stepContribution, chunkContext) -> {
                 Thread.sleep(1000);
@@ -53,7 +53,7 @@ public class BasicPrintStepConfig {
     }
 
     @Bean
-    public Step print4() {
+    public Step print4Step() {
         System.out.println("print4Step");
         return stepBuilderFactory.get("print4")
             .tasklet(printTasklet(null))

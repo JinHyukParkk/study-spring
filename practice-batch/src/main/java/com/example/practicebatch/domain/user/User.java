@@ -26,8 +26,9 @@ public class User {
     private LocalDate updatedDate;
 
     @Builder
-    public User(Long id, String username) {
+    public User(Long id, String username, LocalDate updatedDate) {
         this.id = id;
         this.username = username;
+        this.updatedDate = updatedDate;
     }
 }

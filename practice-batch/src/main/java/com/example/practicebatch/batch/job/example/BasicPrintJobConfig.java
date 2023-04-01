@@ -16,21 +16,21 @@ public class BasicPrintJobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
 
-    private final Step print2;
+    private final Step print2Step;
 
     private final Flow print2Flow;
 
-    private final Flow basicPrintFlow;
+    private final Flow basicParallelsPrintFlow;
 
-    private final Flow basicPrint14Flow;
+    private final Flow basicParallelsPrintWithJobScopeFlow;
 
     @Bean
     public Job basicPrintJob() {
         return this.jobBuilderFactory.get(FLOW_EXAMPLE_JOB)
-            .start(basicPrintFlow)
-            .next(basicPrint14Flow)
+            .start(basicParallelsPrintFlow)
+            .next(basicParallelsPrintWithJobScopeFlow)
             .next(print2Flow)
-            .next(print2)
+            .next(print2Step)
             .build()
             .build();
     }

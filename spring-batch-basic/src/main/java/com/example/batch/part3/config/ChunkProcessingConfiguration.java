@@ -50,6 +50,7 @@ public class ChunkProcessingConfiguration {
     }
 
     @Bean
+
     public Job chunkProcessingJob() {
         return jobBuilderFactory.get("chunkProcessingJob")
                 .incrementer(new RunIdIncrementer())
